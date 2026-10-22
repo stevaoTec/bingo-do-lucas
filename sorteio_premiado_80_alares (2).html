@@ -1,0 +1,2851 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Sorteio Premiado 80 — Alares | Escolha seu Número de 01 a 80!</title>
+    <!-- Tailwind CSS CDN -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <!-- Google Fonts: Plus Jakarta Sans & Outfit -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@600;700;800;900&family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+    <!-- Phosphor Icons -->
+    <script src="https://unpkg.com/@phosphor-icons/web"></script>
+
+    <script>
+        tailwind.config = {
+            darkMode: 'class',
+            theme: {
+                extend: {
+                    fontFamily: {
+                        sans: ['"Plus Jakarta Sans"', 'sans-serif'],
+                        display: ['Outfit', 'sans-serif'],
+                    },
+                    boxShadow: {
+                        'crystal': '0 10px 30px -5px rgba(15, 23, 42, 0.06), 0 4px 12px -2px rgba(15, 23, 42, 0.04)',
+                        'crystal-hover': '0 20px 35px -8px rgba(245, 158, 11, 0.22), 0 8px 16px -4px rgba(15, 23, 42, 0.06)',
+                        'gold-glow': '0 0 35px rgba(245, 158, 11, 0.45)',
+                    }
+                }
+            }
+        }
+    </script>
+
+    <style>
+        /* ==========================================
+           LIGHT CRYSTAL LUXURY & DARK GALA THEMES
+           ========================================== */
+        :root {
+            --bg-main: #f8fafc;
+            --bg-surface: rgba(255, 255, 255, 0.90);
+            --bg-card: #ffffff;
+            --border-subtle: #e2e8f0;
+            --text-primary: #0f172a;
+            --text-secondary: #475569;
+        }
+
+        html.dark {
+            --bg-main: #090d16;
+            --bg-surface: rgba(15, 23, 42, 0.85);
+            --bg-card: #111827;
+            --border-subtle: #1e293b;
+            --text-primary: #f8fafc;
+            --text-secondary: #94a3b8;
+        }
+
+        body {
+            background-color: var(--bg-main);
+            background-image: 
+                radial-gradient(circle at 10% 10%, rgba(251, 191, 36, 0.14) 0%, transparent 40%),
+                radial-gradient(circle at 90% 15%, rgba(168, 85, 247, 0.10) 0%, transparent 40%),
+                radial-gradient(circle at 50% 90%, rgba(14, 165, 233, 0.10) 0%, transparent 45%);
+            background-attachment: fixed;
+            color: var(--text-primary);
+            overflow-x: hidden;
+            transition: background-color 0.3s ease, color 0.3s ease;
+        }
+
+        html.dark body {
+            background-image: 
+                radial-gradient(circle at 12% 12%, rgba(245, 158, 11, 0.12) 0%, transparent 40%),
+                radial-gradient(circle at 88% 18%, rgba(217, 70, 239, 0.10) 0%, transparent 40%),
+                radial-gradient(circle at 50% 85%, rgba(6, 182, 212, 0.10) 0%, transparent 45%);
+        }
+
+        /* Crystal Surface Panel */
+        .crystal-panel {
+            background: var(--bg-surface);
+            backdrop-filter: blur(16px);
+            -webkit-backdrop-filter: blur(16px);
+            border: 1px solid var(--border-subtle);
+        }
+
+        /* ==========================================
+           77 NUMBER CARDS DESIGN
+           ========================================== */
+        .number-ticket {
+            transition: all 0.28s cubic-bezier(0.34, 1.56, 0.64, 1);
+            position: relative;
+            overflow: hidden;
+        }
+
+        .number-ticket.available {
+            background: linear-gradient(180deg, #ffffff 0%, #f8fafc 100%);
+            border: 1.5px solid #e2e8f0;
+            box-shadow: 0 4px 12px -2px rgba(15, 23, 42, 0.05), 0 2px 4px -1px rgba(15, 23, 42, 0.03);
+        }
+
+        html.dark .number-ticket.available {
+            background: linear-gradient(180deg, #1e293b 0%, #0f172a 100%);
+            border: 1.5px solid #334155;
+            box-shadow: 0 4px 14px -2px rgba(0, 0, 0, 0.35);
+        }
+
+        .number-ticket.available:hover {
+            transform: translateY(-6px) scale(1.03);
+            border-color: #f59e0b;
+            box-shadow: 0 16px 28px -6px rgba(245, 158, 11, 0.25), 0 4px 10px -2px rgba(245, 158, 11, 0.12);
+        }
+
+        /* Roulette Spotlight Effect */
+        .number-ticket.roulette-spotlight {
+            transform: translateY(-8px) scale(1.1) !important;
+            z-index: 30 !important;
+            border: 2.5px solid #f59e0b !important;
+            background: linear-gradient(135deg, #fef3c7 0%, #fde68a 100%) !important;
+            box-shadow: 0 0 35px rgba(245, 158, 11, 0.75), 0 12px 24px -4px rgba(245, 158, 11, 0.4) !important;
+        }
+        html.dark .number-ticket.roulette-spotlight {
+            background: linear-gradient(135deg, #78350f 0%, #b45309 100%) !important;
+        }
+
+        /* Opened Rarity Card Themes (High Contrast in both Light & Dark) */
+        .opened-legendary {
+            background: linear-gradient(155deg, #fffbeb 0%, #fef3c7 100%);
+            border: 2px solid #f59e0b;
+            box-shadow: 0 10px 25px -5px rgba(245, 158, 11, 0.28);
+        }
+        html.dark .opened-legendary {
+            background: linear-gradient(155deg, rgba(120, 53, 15, 0.55) 0%, rgba(28, 25, 23, 0.95) 100%);
+            border: 2px solid #f59e0b;
+        }
+
+        .opened-epic {
+            background: linear-gradient(155deg, #fdf4ff 0%, #fae8ff 100%);
+            border: 2px solid #d946ef;
+            box-shadow: 0 10px 25px -5px rgba(217, 70, 239, 0.22);
+        }
+        html.dark .opened-epic {
+            background: linear-gradient(155deg, rgba(112, 26, 117, 0.5) 0%, rgba(15, 23, 42, 0.95) 100%);
+            border: 2px solid #d946ef;
+        }
+
+        .opened-rare {
+            background: linear-gradient(155deg, #f0f9ff 0%, #e0f2fe 100%);
+            border: 2px solid #0ea5e9;
+            box-shadow: 0 10px 25px -5px rgba(14, 165, 233, 0.20);
+        }
+        html.dark .opened-rare {
+            background: linear-gradient(155deg, rgba(12, 74, 110, 0.5) 0%, rgba(15, 23, 42, 0.95) 100%);
+            border: 2px solid #38bdf8;
+        }
+
+        .opened-common {
+            background: linear-gradient(155deg, #ecfdf5 0%, #d1fae5 100%);
+            border: 2px solid #10b981;
+            box-shadow: 0 10px 25px -5px rgba(16, 185, 129, 0.18);
+        }
+        html.dark .opened-common {
+            background: linear-gradient(155deg, rgba(6, 78, 59, 0.5) 0%, rgba(15, 23, 42, 0.95) 100%);
+            border: 2px solid #34d399;
+        }
+
+        /* ==========================================
+           ANIMATIONS & GOLDEN TICKET NOTCHES
+           ========================================== */
+        @keyframes floatGentle {
+            0%, 100% { transform: translateY(0px) rotate(0deg); }
+            50% { transform: translateY(-8px) rotate(2deg); }
+        }
+        .animate-float {
+            animation: floatGentle 3s ease-in-out infinite;
+        }
+
+        @keyframes boxUnwrapShake {
+            0%, 100% { transform: scale(1) rotate(0deg); }
+            15% { transform: scale(1.08) rotate(-10deg); }
+            30% { transform: scale(1.12) rotate(10deg); }
+            45% { transform: scale(1.16) rotate(-12deg); }
+            60% { transform: scale(1.20) rotate(12deg); }
+            75% { transform: scale(1.24) rotate(-8deg); }
+            90% { transform: scale(1.28) rotate(8deg); }
+        }
+        .animate-unwrap {
+            animation: boxUnwrapShake 0.45s infinite ease-in-out;
+        }
+
+        @keyframes popReveal {
+            0% { transform: scale(0.6); opacity: 0; }
+            70% { transform: scale(1.04); opacity: 1; }
+            100% { transform: scale(1); opacity: 1; }
+        }
+        .animate-pop-reveal {
+            animation: popReveal 0.5s cubic-bezier(0.34, 1.56, 0.64, 1) forwards;
+        }
+
+        /* Shimmer sweep on primary buttons */
+        .shimmer-cta {
+            position: relative;
+            overflow: hidden;
+        }
+        .shimmer-cta::after {
+            content: '';
+            position: absolute;
+            top: -50%;
+            left: -60%;
+            width: 45%;
+            height: 200%;
+            background: linear-gradient(to right, transparent, rgba(255, 255, 255, 0.45), transparent);
+            transform: rotate(28deg);
+            animation: sweep 3.2s infinite;
+        }
+        @keyframes sweep {
+            0% { left: -60%; }
+            35%, 100% { left: 140%; }
+        }
+
+        /* Scratch Canvas Cursor */
+        .scratch-canvas {
+            cursor: grab;
+            touch-action: none;
+        }
+        .scratch-canvas:active {
+            cursor: grabbing;
+        }
+
+        /* Custom Scrollbar */
+        ::-webkit-scrollbar {
+            width: 8px;
+            height: 8px;
+        }
+        ::-webkit-scrollbar-track {
+            background: rgba(148, 163, 184, 0.1);
+        }
+        ::-webkit-scrollbar-thumb {
+            background: rgba(148, 163, 184, 0.4);
+            border-radius: 9999px;
+        }
+        ::-webkit-scrollbar-thumb:hover {
+            background: rgba(148, 163, 184, 0.65);
+        }
+    </style>
+</head>
+<body class="min-h-screen flex flex-col selection:bg-amber-400 selection:text-slate-950">
+
+    <!-- Fullscreen Confetti Canvas -->
+    <canvas id="confetti-canvas" class="fixed inset-0 pointer-events-none z-[120]"></canvas>
+
+    <!-- Toast Notification Container -->
+    <div id="toast-container" class="fixed bottom-5 right-5 z-[130] flex flex-col gap-2.5 max-w-sm w-full pointer-events-none px-4 sm:px-0"></div>
+
+    <!-- ========================================== -->
+    <!-- TOP HEADER BAR                             -->
+    <!-- ========================================== -->
+    <header class="sticky top-0 z-40 crystal-panel shadow-sm">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-3 flex flex-wrap items-center justify-between gap-3">
+            
+            <!-- Brand & Event Name -->
+            <div class="flex items-center gap-3.5">
+                <div class="w-12 h-12 rounded-2xl bg-gradient-to-br from-indigo-600 via-violet-600 to-amber-500 flex items-center justify-center shadow-lg shadow-indigo-500/30 border-2 border-white dark:border-slate-800 shrink-0">
+                    <span class="font-display font-black text-2xl text-white tracking-tighter drop-shadow">80</span>
+                </div>
+                <div>
+                    <div class="flex flex-wrap items-center gap-2">
+                        <h1 id="header-title" class="font-display font-black text-lg sm:text-2xl text-slate-900 dark:text-white tracking-tight">
+                            Sorteio Premiado Alares 80
+                        </h1>
+                        <span class="inline-flex items-center gap-1 px-2.5 py-0.5 text-[11px] font-extrabold uppercase tracking-wider bg-amber-100 dark:bg-amber-500/20 text-amber-800 dark:text-amber-300 border border-amber-300 dark:border-amber-500/40 rounded-full">
+                            <i class="ph-fill ph-seal-check text-amber-500"></i> 80 Prêmios Garantidos
+                        </span>
+                    </div>
+                    <p id="header-subtitle" class="text-xs sm:text-sm text-slate-600 dark:text-slate-400 font-medium">
+                        Digite seu nome e sua senha/número de 01 a 80 para descobrir seu prêmio na hora!
+                    </p>
+                </div>
+            </div>
+
+            <!-- Action Controls -->
+            <div class="flex items-center gap-2 flex-wrap">
+                <!-- Theme Toggle (Light Crystal / Dark Gala) -->
+                <button id="btn-theme" onclick="toggleTheme()" title="Alternar Modo Claro Cristal / Modo Noturno Gala"
+                    class="p-2.5 rounded-xl bg-white dark:bg-slate-800 hover:bg-slate-50 dark:hover:bg-slate-700 text-slate-700 dark:text-slate-200 border border-slate-200 dark:border-slate-700 shadow-sm transition">
+                    <i id="icon-theme" class="ph-fill ph-moon-stars text-lg text-indigo-600 dark:text-amber-400"></i>
+                </button>
+
+                <!-- Sound Toggle -->
+                <button id="btn-sound" onclick="toggleSound()" title="Ativar/Desativar efeitos sonoros"
+                    class="p-2.5 rounded-xl bg-white dark:bg-slate-800 hover:bg-slate-50 dark:hover:bg-slate-700 text-slate-700 dark:text-slate-200 border border-slate-200 dark:border-slate-700 shadow-sm transition">
+                    <i id="icon-sound" class="ph-fill ph-speaker-high text-lg text-emerald-600 dark:text-emerald-400"></i>
+                </button>
+
+                <!-- Vitrine dos 80 Prêmios -->
+                <button onclick="openCatalogModal('all')"
+                    class="px-3.5 py-2.5 rounded-xl text-xs sm:text-sm font-bold bg-white dark:bg-slate-800 hover:bg-amber-50 dark:hover:bg-slate-700 text-slate-800 dark:text-slate-100 border border-slate-200 dark:border-slate-700 shadow-sm flex items-center gap-1.5 transition">
+                    <i class="ph-fill ph-gift text-pink-500 text-base"></i>
+                    <span>Lista de Prêmios (80)</span>
+                </button>
+
+                <!-- Painel Admin Exclusivo (Senha 7777) -->
+                <button onclick="openAdminDashboard('tracking')" title="Acesso Exclusivo do Administrador (Senha 7777)"
+                    class="px-4 py-2.5 rounded-xl text-xs sm:text-sm font-extrabold bg-slate-900 dark:bg-amber-500 hover:bg-slate-800 dark:hover:bg-amber-400 text-white dark:text-slate-950 shadow-md flex items-center gap-2 transition relative">
+                    <i class="ph-fill ph-shield-check text-base text-amber-400 dark:text-slate-950"></i>
+                    <span>Painel Admin</span>
+                    <span id="badge-history-count" class="px-1.5 py-0.5 bg-amber-500 dark:bg-slate-900 text-slate-950 dark:text-amber-400 font-black text-[11px] rounded-full leading-none">0/80</span>
+                    <span id="admin-lock-dot" class="w-2.5 h-2.5 rounded-full bg-rose-500 absolute -top-1 -right-1 border-2 border-white dark:border-slate-900"></span>
+                </button>
+            </div>
+        </div>
+    </header>
+
+    <!-- ========================================== -->
+    <!-- MAIN CONTENT CONTAINER                     -->
+    <!-- ========================================== -->
+    <main class="flex-1 max-w-7xl w-full mx-auto px-4 sm:px-6 lg:px-8 py-6 space-y-6">
+
+        <!-- ========================================================= -->
+        <!-- PARTICIPANT ACCESS ("NOME + NÚMERO/SENHA DE 01 A 80")     -->
+        <!-- ========================================================= -->
+        <section id="top-registration-vault" class="relative rounded-3xl p-5 sm:p-7 bg-gradient-to-br from-amber-50/95 via-white to-indigo-50/80 dark:from-slate-900 dark:via-slate-900 dark:to-indigo-950/30 border-2 border-amber-400/90 dark:border-amber-500/50 shadow-crystal overflow-hidden transition-all duration-300">
+            <!-- Decorative Background Glow -->
+            <div class="-right-10 -top-10 w-44 h-44 bg-amber-400/20 rounded-full blur-2xl pointer-events-none absolute"></div>
+
+            <div class="relative z-10 grid grid-cols-1 lg:grid-cols-12 gap-6 items-center">
+                <!-- Left Column: Explanation & Anti-Fraud Status -->
+                <div class="lg:col-span-5 space-y-2.5">
+                    <div class="inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-amber-500 text-slate-950 text-[11px] font-black uppercase tracking-wider shadow-sm">
+                        <i class="ph-fill ph-lock-key text-sm"></i>
+                        <span>Cadastro Obrigatório • 01 a 80</span>
+                    </div>
+                    <h2 class="font-display font-black text-2xl sm:text-3xl text-slate-900 dark:text-white leading-tight">
+                        Cadastre seu Nome e sua Senha de <span class="text-amber-600 dark:text-amber-400">01 a 80</span>!
+                    </h2>
+                    <p class="text-xs sm:text-sm text-slate-600 dark:text-slate-300 font-medium leading-relaxed">
+                        🔒 <strong>Regra Oficial:</strong> Os números do Bingo abaixo são bloqueados. Somente digitando seu <strong>Nome Completo</strong> e a <strong>Senha (o seu número escolhido de 1 a 80)</strong> aqui em cima o sistema libera e revela o seu prêmio na hora!
+                    </p>
+                    <div class="flex flex-wrap items-center gap-2 pt-1">
+                        <span id="vault-security-mode-badge" class="inline-flex items-center gap-1.5 text-xs font-extrabold px-3 py-1 rounded-xl bg-white dark:bg-slate-800 text-slate-700 dark:text-slate-200 border border-slate-200 dark:border-slate-700 shadow-sm">
+                            <i class="ph-fill ph-shield-check text-emerald-500"></i>
+                            <span>Múltiplas Participações Liberadas • 01 a 80</span>
+                        </span>
+                    </div>
+                </div>
+
+                <!-- Right Column: Name + Number/Password (1 to 80) Entry Form -->
+                <div class="lg:col-span-7 bg-white/95 dark:bg-slate-950/90 p-4 sm:p-5 rounded-2xl border-2 border-amber-300/90 dark:border-slate-800 shadow-md">
+                    <form onsubmit="event.preventDefault(); submitPasswordVault();" class="grid grid-cols-1 sm:grid-cols-12 gap-3.5 items-end" autocomplete="off">
+                        <!-- Participant Name -->
+                        <div class="sm:col-span-5">
+                            <label for="vault-winner-name" class="block text-[11px] font-extrabold uppercase tracking-wider text-slate-700 dark:text-slate-300 mb-1.5">
+                                👤 1. Seu Nome Completo <span class="text-rose-500">*</span>
+                            </label>
+                            <div class="relative">
+                                <i class="ph-bold ph-user absolute left-3.5 top-1/2 -translate-y-1/2 text-slate-400"></i>
+                                <input type="text" id="vault-winner-name" maxlength="45" required
+                                    placeholder="Ex: Maria Silva"
+                                    class="w-full pl-10 pr-3 py-3 rounded-xl bg-slate-50 dark:bg-slate-900 border-2 border-slate-200 dark:border-slate-700 text-slate-900 dark:text-white placeholder-slate-400 text-sm font-bold focus:outline-none focus:border-amber-500 focus:bg-white dark:focus:bg-slate-900 transition">
+                            </div>
+                        </div>
+
+                        <!-- Number / Password 1 to 80 Input -->
+                        <div class="sm:col-span-4">
+                            <label for="vault-password-input" class="block text-[11px] font-extrabold uppercase tracking-wider text-slate-700 dark:text-slate-300 mb-1.5">
+                                🔑 2. Senha (Nº de 1 a 80) <span class="text-rose-500">*</span>
+                            </label>
+                            <div class="relative">
+                                <i class="ph-fill ph-key absolute left-3.5 top-1/2 -translate-y-1/2 text-amber-500"></i>
+                                <input type="text" inputmode="numeric" id="vault-password-input" maxlength="20" required
+                                    placeholder="Nº de 1 a 80"
+                                    class="w-full pl-10 pr-10 py-3 rounded-xl bg-slate-50 dark:bg-slate-900 border-2 border-amber-300 dark:border-amber-500/50 text-slate-900 dark:text-white placeholder-slate-400 text-sm font-black tracking-wider focus:outline-none focus:border-amber-500 focus:bg-white dark:focus:bg-slate-900 transition">
+                                <button type="button" onclick="togglePasswordVisibility('vault-password-input', 'vault-eye-icon')"
+                                    title="Mostrar/Ocultar Senha"
+                                    class="absolute right-3 top-1/2 -translate-y-1/2 text-slate-400 hover:text-slate-700 dark:hover:text-white">
+                                    <i id="vault-eye-icon" class="ph-bold ph-hash text-lg"></i>
+                                </button>
+                            </div>
+                        </div>
+
+                        <!-- Unlock & Open Button -->
+                        <div class="sm:col-span-3">
+                            <button type="submit"
+                                class="shimmer-cta w-full py-3 px-4 rounded-xl bg-gradient-to-r from-amber-500 via-orange-500 to-rose-500 hover:from-amber-400 hover:to-rose-400 text-white font-display font-black text-sm shadow-lg shadow-amber-500/25 flex items-center justify-center gap-1.5 transition transform active:scale-95 h-[48px]">
+                                <i class="ph-fill ph-lock-key-open text-lg"></i>
+                                <span>Revelar Prêmio</span>
+                            </button>
+                        </div>
+                    </form>
+
+                    <!-- Security Alert / Feedback Banner inside Vault -->
+                    <div id="vault-alert-box" class="hidden mt-3.5 p-3.5 rounded-xl text-xs font-bold flex items-center justify-between gap-2"></div>
+                </div>
+            </div>
+        </section>
+
+        <!-- HERO PROGRESS & PRIZE SUMMARY CARDS -->
+        <section class="grid grid-cols-1 lg:grid-cols-12 gap-5 items-stretch">
+            
+            <!-- Left Card: Live Progress & Quick Admin -->
+            <div class="lg:col-span-5 bg-white dark:bg-slate-900 rounded-3xl p-5 sm:p-6 border border-slate-200/90 dark:border-slate-800 shadow-crystal flex flex-col justify-between gap-4">
+                <div>
+                    <div class="flex items-center justify-between mb-2">
+                        <span class="text-xs font-extrabold uppercase tracking-wider text-slate-500 dark:text-slate-400 flex items-center gap-1.5">
+                            <span class="w-2.5 h-2.5 rounded-full bg-emerald-500 animate-pulse"></span>
+                            Andamento do Bingo (01 a 80)
+                        </span>
+                        <span id="stats-progress-text" class="text-sm font-display font-extrabold text-slate-900 dark:text-white">
+                            0 de 80 Revelados (0%)
+                        </span>
+                    </div>
+                    <!-- Progress Bar -->
+                    <div class="w-full h-4 bg-slate-100 dark:bg-slate-800 rounded-full overflow-hidden p-0.5 border border-slate-200 dark:border-slate-700">
+                        <div id="stats-progress-bar" class="h-full rounded-full bg-gradient-to-r from-amber-400 via-orange-500 to-pink-500 transition-all duration-500" style="width: 0%"></div>
+                    </div>
+                </div>
+
+                <!-- Counter Pills & Admin Button -->
+                <div class="flex flex-col sm:flex-row items-stretch sm:items-center justify-between gap-3 pt-1">
+                    <div class="flex items-center gap-2.5">
+                        <div class="flex-1 sm:flex-initial px-3.5 py-2.5 rounded-2xl bg-emerald-50 dark:bg-emerald-950/40 border border-emerald-200 dark:border-emerald-800/60 text-center min-w-[92px]">
+                            <div id="stat-available" class="font-display font-black text-2xl text-emerald-600 dark:text-emerald-400 leading-none">80</div>
+                            <div class="text-[11px] text-emerald-800 dark:text-emerald-300 font-bold mt-1">Livres</div>
+                        </div>
+                        <div class="flex-1 sm:flex-initial px-3.5 py-2.5 rounded-2xl bg-amber-50 dark:bg-amber-950/40 border border-amber-200 dark:border-amber-800/60 text-center min-w-[92px]">
+                            <div id="stat-opened" class="font-display font-black text-2xl text-amber-600 dark:text-amber-400 leading-none">0</div>
+                            <div class="text-[11px] text-amber-800 dark:text-amber-300 font-bold mt-1">Revelados</div>
+                        </div>
+                    </div>
+
+                    <!-- Quick Admin Tracking Button -->
+                    <button onclick="openAdminDashboard('tracking')"
+                        class="flex-1 py-3.5 px-4 rounded-2xl bg-slate-900 dark:bg-slate-800 hover:bg-slate-800 dark:hover:bg-slate-700 text-white font-display font-extrabold text-xs sm:text-sm shadow-md flex items-center justify-center gap-2 border border-slate-700 transition">
+                        <i class="ph-fill ph-shield-star text-amber-400 text-lg"></i>
+                        <span>Acompanhar Sorteio (Admin)</span>
+                    </button>
+                </div>
+            </div>
+
+            <!-- Right Card: 4 Clear Rarity Category Cards for the 80 Alares Prizes -->
+            <div class="lg:col-span-7 bg-white dark:bg-slate-900 rounded-3xl p-5 sm:p-6 border border-slate-200/90 dark:border-slate-800 shadow-crystal flex flex-col justify-between">
+                <div class="flex flex-wrap items-center justify-between gap-2 mb-3">
+                    <h2 class="text-xs font-extrabold uppercase tracking-wider text-slate-500 dark:text-slate-400 flex items-center gap-1.5">
+                        <i class="ph-fill ph-crown text-amber-500 text-sm"></i>
+                        80 Prêmios Espalhados Aleatoriamente no Bingo
+                    </h2>
+                    <button onclick="openCatalogModal('all')" class="text-xs font-bold text-amber-600 dark:text-amber-400 hover:underline flex items-center gap-1">
+                        <span>Ver lista das 80 premiações</span>
+                        <i class="ph-bold ph-arrow-right"></i>
+                    </button>
+                </div>
+
+                <div class="grid grid-cols-2 sm:grid-cols-4 gap-3">
+                    <!-- Diamante / Super Prêmios (6) -->
+                    <button onclick="openCatalogModal('all')"
+                        class="group p-3.5 rounded-2xl bg-gradient-to-br from-amber-50 via-yellow-50 to-orange-50 dark:from-amber-950/40 dark:to-slate-900 border-2 border-amber-300/80 dark:border-amber-500/40 hover:border-amber-500 hover:shadow-md transition text-left relative overflow-hidden">
+                        <div class="flex items-center justify-between">
+                            <span class="text-2xl group-hover:scale-110 transition">👑</span>
+                            <span id="remain-legendary" class="font-display font-black text-sm px-2 py-0.5 rounded-lg bg-amber-500 text-white shadow-sm">6 Prêmios</span>
+                        </div>
+                        <div class="mt-2 font-display font-extrabold text-sm text-amber-950 dark:text-amber-200">Super Prêmios</div>
+                        <div class="text-[10px] font-semibold text-amber-700 dark:text-amber-400 truncate">Stanley, JBL, Fone, Mochila</div>
+                    </button>
+
+                    <!-- Ouro / Épico (4) -->
+                    <button onclick="openCatalogModal('all')"
+                        class="group p-3.5 rounded-2xl bg-gradient-to-br from-fuchsia-50 via-purple-50 to-pink-50 dark:from-fuchsia-950/40 dark:to-slate-900 border-2 border-fuchsia-300/80 dark:border-fuchsia-500/40 hover:border-fuchsia-500 hover:shadow-md transition text-left relative overflow-hidden">
+                        <div class="flex items-center justify-between">
+                            <span class="text-2xl group-hover:scale-110 transition">🔥</span>
+                            <span id="remain-epic" class="font-display font-black text-sm px-2 py-0.5 rounded-lg bg-fuchsia-600 text-white shadow-sm">4 Prêmios</span>
+                        </div>
+                        <div class="mt-2 font-display font-extrabold text-sm text-fuchsia-950 dark:text-fuchsia-200">Prêmios VIP</div>
+                        <div class="text-[10px] font-semibold text-fuchsia-700 dark:text-fuchsia-400 truncate">Bolsas Térmicas & Canivetes</div>
+                    </button>
+
+                    <!-- Prata / Kit Alares (10) -->
+                    <button onclick="openCatalogModal('all')"
+                        class="group p-3.5 rounded-2xl bg-gradient-to-br from-sky-50 via-cyan-50 to-blue-50 dark:from-sky-950/40 dark:to-slate-900 border-2 border-sky-300/80 dark:border-sky-500/40 hover:border-sky-500 hover:shadow-md transition text-left relative overflow-hidden">
+                        <div class="flex items-center justify-between">
+                            <span class="text-2xl group-hover:scale-110 transition">🥤</span>
+                            <span id="remain-rare" class="font-display font-black text-sm px-2 py-0.5 rounded-lg bg-sky-600 text-white shadow-sm">10 Prêmios</span>
+                        </div>
+                        <div class="mt-2 font-display font-extrabold text-sm text-sky-950 dark:text-sky-200">Especial Alares</div>
+                        <div class="text-[10px] font-semibold text-sky-700 dark:text-sky-400 truncate">9 Copões + 1 Chaveiro Alares</div>
+                    </button>
+
+                    <!-- Mimos & Doces (60) -->
+                    <button onclick="openCatalogModal('all')"
+                        class="group p-3.5 rounded-2xl bg-gradient-to-br from-emerald-50 via-teal-50 to-green-50 dark:from-emerald-950/40 dark:to-slate-900 border-2 border-emerald-300/80 dark:border-emerald-500/40 hover:border-emerald-500 hover:shadow-md transition text-left relative overflow-hidden">
+                        <div class="flex items-center justify-between">
+                            <span class="text-2xl group-hover:scale-110 transition">🍫</span>
+                            <span id="remain-common" class="font-display font-black text-sm px-2 py-0.5 rounded-lg bg-emerald-600 text-white shadow-sm">60 Prêmios</span>
+                        </div>
+                        <div class="mt-2 font-display font-extrabold text-sm text-emerald-950 dark:text-emerald-200">Mimos & Doces</div>
+                        <div class="text-[10px] font-semibold text-emerald-700 dark:text-emerald-400 truncate">Sonho de Valsa, Dadinho, Chita</div>
+                    </button>
+                </div>
+            </div>
+        </section>
+
+        <!-- FILTER & SEARCH BAR -->
+        <section class="bg-white dark:bg-slate-900 rounded-2xl p-3.5 sm:p-4 flex flex-col md:flex-row items-stretch md:items-center justify-between gap-3 border border-slate-200/90 dark:border-slate-800 shadow-sm">
+            <!-- Status Filter Tabs -->
+            <div class="flex items-center gap-2 overflow-x-auto pb-1 md:pb-0">
+                <button onclick="setStatusFilter('all')" id="filter-status-all"
+                    class="px-4 py-2 rounded-xl text-xs sm:text-sm font-extrabold transition whitespace-nowrap bg-slate-900 dark:bg-amber-500 text-white dark:text-slate-950 shadow-sm">
+                    Todos os Números (80)
+                </button>
+                <button onclick="setStatusFilter('available')" id="filter-status-available"
+                    class="px-4 py-2 rounded-xl text-xs sm:text-sm font-bold transition whitespace-nowrap bg-slate-100 dark:bg-slate-800 text-slate-700 dark:text-slate-300 hover:bg-slate-200 dark:hover:bg-slate-700">
+                    🔒 Números Livres
+                </button>
+                <button onclick="setStatusFilter('opened')" id="filter-status-opened"
+                    class="px-4 py-2 rounded-xl text-xs sm:text-sm font-bold transition whitespace-nowrap bg-slate-100 dark:bg-slate-800 text-slate-700 dark:text-slate-300 hover:bg-slate-200 dark:hover:bg-slate-700">
+                    ✅ Já Revelados
+                </button>
+            </div>
+
+            <!-- Search Input & Admin Peek Indicator -->
+            <div class="flex items-center gap-2.5">
+                <div class="relative flex-1 sm:w-80">
+                    <i class="ph-bold ph-magnifying-glass absolute left-3.5 top-1/2 -translate-y-1/2 text-slate-400"></i>
+                    <input type="text" id="search-input" oninput="handleSearch(this.value)"
+                        placeholder="Buscar nº (01 a 80) ou nome do ganhador..."
+                        class="w-full pl-10 pr-8 py-2.5 bg-slate-50 dark:bg-slate-800/90 border border-slate-200 dark:border-slate-700 rounded-xl text-xs sm:text-sm text-slate-900 dark:text-white placeholder-slate-400 font-medium focus:outline-none focus:border-amber-500 focus:bg-white dark:focus:bg-slate-800 transition">
+                    <button id="btn-clear-search" onclick="clearSearch()" class="hidden absolute right-2.5 top-1/2 -translate-y-1/2 text-slate-400 hover:text-slate-700 dark:hover:text-white">
+                        <i class="ph-fill ph-x-circle text-lg"></i>
+                    </button>
+                </div>
+
+                <!-- Admin Active Badge (Only visible when Admin is unlocked) -->
+                <button id="btn-peek" onclick="handlePeekButtonClick()" title="Modo Espiar Exclusivo do Admin (Senha 7777)"
+                    class="hidden px-3.5 py-2.5 rounded-xl text-xs sm:text-sm font-bold bg-amber-500 text-slate-950 shadow-sm items-center gap-1.5 transition shrink-0">
+                    <i id="icon-peek" class="ph-fill ph-eye text-base"></i>
+                    <span class="hidden sm:inline">Espiar (Admin)</span>
+                </button>
+            </div>
+        </section>
+
+        <!-- ========================================== -->
+        <!-- 80 NUMBERS BINGO BOARD (LOCKED BY DEFAULT) -->
+        <!-- ========================================== -->
+        <section>
+            <div class="mb-3 flex items-center justify-between px-1">
+                <p class="text-xs font-bold text-slate-500 dark:text-slate-400 flex items-center gap-1.5">
+                    <i class="ph-fill ph-info text-amber-500 text-sm"></i>
+                    <span>Os cartões livres abaixo estão trancados. Para abrir o seu número, preencha seu <strong>Nome e Senha lá em cima</strong>!</span>
+                </p>
+            </div>
+
+            <div id="numbers-grid" class="grid grid-cols-2 sm:grid-cols-4 md:grid-cols-5 lg:grid-cols-8 gap-3 sm:gap-3.5">
+                <!-- Populated dynamically with 01 to 80 -->
+            </div>
+
+            <!-- Empty State when filter returns 0 items -->
+            <div id="empty-grid-state" class="hidden bg-white dark:bg-slate-900 rounded-3xl p-12 text-center my-4 border border-slate-200 dark:border-slate-800 shadow-sm">
+                <div class="w-16 h-16 rounded-2xl bg-amber-50 dark:bg-slate-800 flex items-center justify-center mx-auto mb-3 text-3xl">
+                    🔍
+                </div>
+                <h3 class="font-display font-extrabold text-xl text-slate-900 dark:text-white">Nenhum número encontrado</h3>
+                <p class="text-sm text-slate-500 dark:text-slate-400 mt-1 max-w-md mx-auto">
+                    Não encontramos cartões para o filtro atual. Clique abaixo para exibir novamente todos os 80 números.
+                </p>
+                <button onclick="resetAllFilters()" class="mt-5 px-5 py-2.5 rounded-xl bg-amber-500 hover:bg-amber-400 text-white font-display font-extrabold text-sm shadow-md transition">
+                    Mostrar Todos os 80 Números
+                </button>
+            </div>
+        </section>
+
+    </main>
+
+    <!-- Footer -->
+    <footer class="border-t border-slate-200/80 dark:border-slate-800/80 bg-white/60 dark:bg-slate-900/60 py-5 mt-12 text-center text-xs text-slate-500 dark:text-slate-400">
+        <div class="max-w-7xl mx-auto px-4 flex flex-col sm:flex-row items-center justify-between gap-2">
+            <p class="font-medium">🎁 <strong>Sorteio Premiado Alares 80</strong> — Sistema protegido contra fraude. Liberação exclusiva por Nome + Senha (01 a 80).</p>
+            <div class="flex items-center gap-4">
+                <button onclick="openAdminDashboard('tracking')" class="font-bold text-slate-700 dark:text-slate-300 hover:text-amber-600 underline">
+                    🔐 Painel Admin (7777)
+                </button>
+                <p class="flex items-center gap-1.5 font-semibold text-emerald-600 dark:text-emerald-400">
+                    <span class="w-2 h-2 rounded-full bg-emerald-500"></span>
+                    <span>Salvo automaticamente</span>
+                </p>
+            </div>
+        </div>
+    </footer>
+
+    <!-- ========================================================== -->
+    <!-- MODAL 1: REVELAÇÃO IMEDIATA DO PRÊMIO (UNBOX + BILHETE)    -->
+    <!-- ========================================================== -->
+    <div id="modal-reveal" class="fixed inset-0 z-50 hidden items-center justify-center p-4 bg-slate-900/75 dark:bg-slate-950/85 backdrop-blur-md overflow-y-auto">
+        <div class="relative w-full max-w-lg bg-white dark:bg-slate-900 rounded-3xl border-2 border-amber-400 dark:border-amber-500/70 shadow-2xl overflow-hidden my-auto">
+            
+            <!-- Top Decorative Gold Bar -->
+            <div class="h-2.5 w-full bg-gradient-to-r from-amber-400 via-orange-500 to-rose-500"></div>
+
+            <!-- Close Button -->
+            <button onclick="closeRevealModal()"
+                class="absolute top-5 right-5 z-30 w-9 h-9 rounded-full bg-slate-100 dark:bg-slate-800 hover:bg-slate-200 dark:hover:bg-slate-700 text-slate-600 dark:text-slate-300 flex items-center justify-center transition">
+                <i class="ph-bold ph-x text-lg"></i>
+            </button>
+
+            <!-- ========================================== -->
+            <!-- STEP 1: SUSPENSE UNBOXING (AUTO-REVEALS!)  -->
+            <!-- ========================================== -->
+            <div id="reveal-step-unbox" class="p-8 sm:p-10 text-center flex flex-col items-center justify-center min-h-[340px]">
+                <div class="inline-flex items-center gap-1.5 px-3.5 py-1 rounded-full bg-amber-100 dark:bg-amber-500/20 text-amber-800 dark:text-amber-300 text-xs font-extrabold uppercase tracking-wider mb-3">
+                    <i class="ph-fill ph-sparkle"></i>
+                    <span>Liberando Prêmio do Bingo...</span>
+                </div>
+
+                <h3 class="font-display font-black text-2xl sm:text-3xl text-slate-900 dark:text-white">
+                    Número Escolhido: <span id="unbox-number-label" class="text-amber-500">#01</span>
+                </h3>
+                <p id="unbox-winner-label" class="text-sm font-bold text-slate-600 dark:text-slate-300 mt-1">
+                    Participante
+                </p>
+
+                <div class="my-8 relative flex items-center justify-center">
+                    <div class="w-40 h-40 rounded-full bg-amber-400/30 blur-2xl absolute animate-pulse"></div>
+                    <div id="unbox-gift-icon" onclick="finishInstantReveal()" class="text-8xl select-none animate-unwrap cursor-pointer relative z-10">
+                        🎁
+                    </div>
+                </div>
+
+                <button type="button" onclick="finishInstantReveal()"
+                    class="shimmer-cta px-6 py-3 rounded-2xl bg-gradient-to-r from-amber-500 to-rose-500 text-white font-display font-black text-sm shadow-lg">
+                    ✨ Mostrar Meu Prêmio Agora!
+                </button>
+            </div>
+
+            <!-- ========================================== -->
+            <!-- STEP 2: GOLDEN TICKET RESULT CELEBRATION   -->
+            <!-- ========================================== -->
+            <div id="reveal-step-result" class="hidden p-6 sm:p-8 text-center animate-pop-reveal">
+                
+                <!-- Top Celebration Header -->
+                <div class="inline-flex items-center gap-1.5 px-3.5 py-1 rounded-full bg-emerald-100 dark:bg-emerald-500/20 text-emerald-800 dark:text-emerald-300 text-xs font-extrabold uppercase tracking-wider mb-3">
+                    <i class="ph-fill ph-seal-check text-emerald-600 dark:text-emerald-400 text-base"></i>
+                    <span>Prêmio Oficial Revelado!</span>
+                </div>
+
+                <!-- Golden Ticket Container -->
+                <div id="result-ticket-card" class="rounded-3xl p-6 my-2 relative overflow-hidden text-center transition-all">
+                    <!-- Ticket Top Row: Number & Rarity -->
+                    <div class="flex items-center justify-between gap-2 pb-4 mb-4 border-b border-dashed border-slate-300 dark:border-slate-700">
+                        <div class="flex items-center gap-2">
+                            <span class="text-xs font-extrabold uppercase text-slate-600 dark:text-slate-300">SEU NÚMERO</span>
+                            <span id="result-number-badge" class="px-3.5 py-1 rounded-xl bg-slate-900 dark:bg-white text-white dark:text-slate-950 font-display font-black text-xl shadow-sm">
+                                #07
+                            </span>
+                        </div>
+                        <span id="result-rarity-badge" class="px-3 py-1 rounded-full text-xs font-extrabold uppercase tracking-wider">
+                            👑 SUPER PRÊMIO
+                        </span>
+                    </div>
+
+                    <!-- Big Prize Emoji & Name -->
+                    <div id="result-prize-emoji" class="text-7xl sm:text-8xl my-3 select-none animate-float">
+                        🏆
+                    </div>
+                    <div class="text-[11px] font-extrabold uppercase tracking-widest text-amber-700 dark:text-amber-400 mb-1">
+                        🎉 PARABÉNS! VOCÊ GANHOU:
+                    </div>
+                    <h2 id="result-prize-name" class="font-display font-black text-2xl sm:text-3xl text-slate-900 dark:text-white leading-tight">
+                        Copo Stanley
+                    </h2>
+
+                    <!-- Anti-Fraud Verification Hash Seal -->
+                    <div class="mt-3.5 inline-flex items-center gap-1.5 px-3 py-1 rounded-lg bg-white/90 dark:bg-slate-900/90 border border-slate-300 dark:border-slate-700 text-[11px] font-mono font-bold text-slate-700 dark:text-slate-300">
+                        <i class="ph-fill ph-shield-check text-emerald-500 text-sm"></i>
+                        <span>REGISTRO OFICIAL:</span>
+                        <strong id="result-auth-code" class="text-slate-900 dark:text-amber-400">ALARES-#07-A9F2</strong>
+                    </div>
+
+                    <!-- Winner Info Box inside Ticket -->
+                    <div class="mt-4 pt-4 border-t border-dashed border-slate-300 dark:border-slate-700 flex items-center justify-between gap-2 text-left">
+                        <div class="flex items-center gap-2.5 min-w-0">
+                            <div class="w-10 h-10 rounded-xl bg-white/90 dark:bg-slate-800 border border-slate-200 dark:border-slate-700 flex items-center justify-center text-amber-500 shrink-0">
+                                <i class="ph-fill ph-user-circle text-2xl"></i>
+                            </div>
+                            <div class="min-w-0">
+                                <div class="text-[10px] font-bold uppercase text-slate-500 dark:text-slate-400">Ganhador(a) Cadastrado(a) • <span id="result-time-label">Agora</span></div>
+                                <div id="result-winner-name" class="text-base font-extrabold text-slate-900 dark:text-white truncate">
+                                    Participante #07
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Edit button strictly visible ONLY if Admin is logged in -->
+                        <button id="btn-admin-edit-winner" onclick="promptEditWinnerName()" class="hidden px-3 py-1.5 rounded-xl bg-white/90 dark:bg-slate-800 hover:bg-white text-xs font-bold text-slate-700 dark:text-slate-200 border border-slate-200 dark:border-slate-700 items-center gap-1 shrink-0 transition">
+                            <i class="ph-bold ph-pencil-simple"></i> Editar (Admin)
+                        </button>
+                    </div>
+                </div>
+
+                <!-- Inline Winner Edit Input (Strictly Admin Only) -->
+                <div id="inline-edit-winner-box" class="hidden my-3 items-center gap-2">
+                    <input type="text" id="input-edit-winner" placeholder="Novo nome do ganhador..."
+                        onkeydown="if(event.key === 'Enter') saveEditedWinnerName()"
+                        class="flex-1 px-3.5 py-2.5 rounded-xl bg-slate-50 dark:bg-slate-800 border border-slate-300 dark:border-slate-700 text-sm font-semibold text-slate-900 dark:text-white focus:outline-none focus:border-amber-500">
+                    <button onclick="saveEditedWinnerName()" class="px-4 py-2.5 rounded-xl bg-emerald-600 hover:bg-emerald-500 text-white font-bold text-xs">
+                        Salvar
+                    </button>
+                </div>
+
+                <!-- Result Action Buttons -->
+                <div class="grid grid-cols-1 sm:grid-cols-2 gap-2.5 mt-5">
+                    <button onclick="copySingleTicketResult()"
+                        class="py-3.5 px-4 rounded-2xl bg-emerald-50 dark:bg-emerald-950/50 hover:bg-emerald-100 text-emerald-800 dark:text-emerald-300 font-extrabold text-xs sm:text-sm flex items-center justify-center gap-2 border border-emerald-200 dark:border-emerald-800 transition">
+                        <i class="ph-fill ph-whatsapp-logo text-lg text-emerald-600"></i>
+                        <span>Copiar Comprovante</span>
+                    </button>
+                    <button onclick="closeRevealModal()"
+                        class="py-3.5 px-4 rounded-2xl bg-slate-900 dark:bg-amber-500 hover:bg-slate-800 dark:hover:bg-amber-400 text-white dark:text-slate-950 font-display font-black text-xs sm:text-sm flex items-center justify-center gap-2 shadow-md transition">
+                        <i class="ph-bold ph-check-circle text-lg"></i>
+                        <span>Concluir e Ver no Bingo</span>
+                    </button>
+                </div>
+
+                <!-- Admin-Only Controls inside Ticket Modal (Hidden from Regular Users) -->
+                <div id="admin-ticket-actions" class="hidden mt-4 pt-3 border-t border-slate-200 dark:border-slate-800 justify-center">
+                    <button onclick="undoCurrentNumber()" class="text-xs font-extrabold text-rose-600 hover:underline flex items-center gap-1 transition">
+                        <i class="ph-bold ph-arrow-counter-clockwise"></i>
+                        <span>[ADMIN] Estornar e Liberar este Número Novamente</span>
+                    </button>
+                </div>
+            </div>
+
+        </div>
+    </div>
+
+    <!-- ========================================================== -->
+    <!-- MODAL 6: PAINEL ADMIN COMPLETO (SENHA EXCLUSIVA 7777)      -->
+    <!-- ========================================================== -->
+    <div id="modal-admin-dashboard" class="fixed inset-0 z-50 hidden items-center justify-center p-2 sm:p-4 bg-slate-900/80 dark:bg-slate-950/90 backdrop-blur-md">
+        <div class="w-full max-w-6xl bg-white dark:bg-slate-900 rounded-3xl border border-slate-200 dark:border-slate-800 shadow-2xl flex flex-col max-h-[94vh] overflow-hidden">
+            
+            <!-- Top Admin Header -->
+            <div class="p-4 sm:p-6 bg-slate-900 text-white flex flex-wrap items-center justify-between gap-3">
+                <div class="flex items-center gap-3">
+                    <div class="w-12 h-12 rounded-2xl bg-amber-500 text-slate-950 flex items-center justify-center font-display font-black text-xl shadow-md">
+                        <i class="ph-fill ph-shield-star text-2xl"></i>
+                    </div>
+                    <div>
+                        <div class="flex flex-wrap items-center gap-2">
+                            <h2 class="font-display font-black text-lg sm:text-2xl tracking-tight">
+                                Painel Admin Exclusivo — Sorteio Alares (01 a 80)
+                            </h2>
+                            <span class="px-2.5 py-0.5 rounded-full text-[10px] font-extrabold uppercase bg-emerald-500/20 text-emerald-300 border border-emerald-500/30">
+                                🔓 Admin Logado (7777)
+                            </span>
+                        </div>
+                        <p class="text-xs text-slate-300">
+                            Controle absoluto: acompanhe cada número escolhido, o nome da pessoa, o prêmio sorteado, status de entrega e gabarito.
+                        </p>
+                    </div>
+                </div>
+
+                <div class="flex items-center gap-2">
+                    <button onclick="lockOrganizerSession()" title="Sair e trancar o Painel Admin com senha"
+                        class="px-3.5 py-2 rounded-xl bg-rose-600 hover:bg-rose-500 text-white text-xs font-extrabold flex items-center gap-1.5 shadow-sm transition">
+                        <i class="ph-bold ph-lock-key"></i>
+                        <span>Sair / Trancar Admin</span>
+                    </button>
+                    <button onclick="closeAdminDashboard()" class="w-10 h-10 rounded-full bg-slate-800 hover:bg-slate-700 text-slate-300 flex items-center justify-center transition">
+                        <i class="ph-bold ph-x text-lg"></i>
+                    </button>
+                </div>
+            </div>
+
+            <!-- Admin Navigation Tabs -->
+            <div class="px-4 sm:px-6 py-3 bg-slate-100 dark:bg-slate-800/80 border-b border-slate-200 dark:border-slate-800 flex items-center gap-2 overflow-x-auto">
+                <button onclick="switchAdminTab('tracking')" id="adm-tab-tracking"
+                    class="px-4 py-2.5 rounded-xl text-xs sm:text-sm font-extrabold flex items-center gap-2 whitespace-nowrap transition">
+                    <i class="ph-fill ph-users-three text-base"></i>
+                    <span>1. Números Escolhidos & Ganhadores</span>
+                    <span id="adm-badge-chosen" class="px-2 py-0.5 rounded-full bg-amber-500 text-slate-950 font-black text-[11px]">0</span>
+                </button>
+                <button onclick="switchAdminTab('map')" id="adm-tab-map"
+                    class="px-4 py-2.5 rounded-xl text-xs sm:text-sm font-bold flex items-center gap-2 whitespace-nowrap transition">
+                    <i class="ph-fill ph-map-trifold text-base"></i>
+                    <span>2. Gabarito Completo (01 a 80)</span>
+                </button>
+                <button onclick="switchAdminTab('inventory')" id="adm-tab-inventory"
+                    class="px-4 py-2.5 rounded-xl text-xs sm:text-sm font-bold flex items-center gap-2 whitespace-nowrap transition">
+                    <i class="ph-fill ph-package text-base"></i>
+                    <span>3. Estoque dos 11 Prêmios (80)</span>
+                </button>
+                <button onclick="switchAdminTab('settings')" id="adm-tab-settings"
+                    class="px-4 py-2.5 rounded-xl text-xs sm:text-sm font-bold flex items-center gap-2 whitespace-nowrap transition">
+                    <i class="ph-fill ph-gear-six text-base"></i>
+                    <span>4. Segurança, Roleta & Reset</span>
+                </button>
+            </div>
+
+            <!-- ========================================== -->
+            <!-- TAB 1: ACOMPANHAMENTO DE NÚMEROS ESCOLHIDOS -->
+            <!-- ========================================== -->
+            <div id="adm-panel-tracking" class="p-4 sm:p-6 overflow-y-auto space-y-5 flex-1">
+                <!-- KPI Summary Row -->
+                <div class="grid grid-cols-2 sm:grid-cols-5 gap-3">
+                    <div class="p-3.5 rounded-2xl bg-amber-50 dark:bg-amber-950/30 border border-amber-200 dark:border-amber-800/60">
+                        <div class="text-[10px] font-extrabold uppercase text-amber-800 dark:text-amber-300">Números Escolhidos</div>
+                        <div id="adm-kpi-opened" class="font-display font-black text-2xl text-amber-600 dark:text-amber-400 mt-0.5">0 / 80</div>
+                    </div>
+                    <div class="p-3.5 rounded-2xl bg-emerald-50 dark:bg-emerald-950/30 border border-emerald-200 dark:border-emerald-800/60">
+                        <div class="text-[10px] font-extrabold uppercase text-emerald-800 dark:text-emerald-300">Números Livres</div>
+                        <div id="adm-kpi-available" class="font-display font-black text-2xl text-emerald-600 dark:text-emerald-400 mt-0.5">80</div>
+                    </div>
+                    <div class="p-3.5 rounded-2xl bg-indigo-50 dark:bg-indigo-950/30 border border-indigo-200 dark:border-indigo-800/60">
+                        <div class="text-[10px] font-extrabold uppercase text-indigo-800 dark:text-indigo-300">Prêmios Físicos/Alares</div>
+                        <div id="adm-kpi-special-left" class="font-display font-black text-2xl text-indigo-600 dark:text-indigo-400 mt-0.5">20 rest.</div>
+                    </div>
+                    <div class="p-3.5 rounded-2xl bg-pink-50 dark:bg-pink-950/30 border border-pink-200 dark:border-pink-800/60">
+                        <div class="text-[10px] font-extrabold uppercase text-pink-800 dark:text-pink-300">Doces & Mimos</div>
+                        <div id="adm-kpi-candy-left" class="font-display font-black text-2xl text-pink-600 dark:text-pink-400 mt-0.5">60 rest.</div>
+                    </div>
+                    <div class="col-span-2 sm:col-span-1 p-3.5 rounded-2xl bg-sky-50 dark:bg-sky-950/30 border border-sky-200 dark:border-sky-800/60">
+                        <div class="text-[10px] font-extrabold uppercase text-sky-800 dark:text-sky-300">Brindes Entregues</div>
+                        <div id="adm-kpi-delivered" class="font-display font-black text-2xl text-sky-600 dark:text-sky-400 mt-0.5">0 / 0</div>
+                    </div>
+                </div>
+
+                <!-- Search, Filter & Export Bar -->
+                <div class="flex flex-col lg:flex-row items-stretch lg:items-center justify-between gap-3 bg-slate-50 dark:bg-slate-800/60 p-3.5 rounded-2xl border border-slate-200 dark:border-slate-700">
+                    <div class="flex flex-col sm:flex-row items-stretch sm:items-center gap-2.5 flex-1">
+                        <div class="relative flex-1">
+                            <i class="ph-bold ph-magnifying-glass absolute left-3.5 top-1/2 -translate-y-1/2 text-slate-400"></i>
+                            <input type="text" id="adm-search-chosen" oninput="renderAdminTrackingTable()"
+                                placeholder="Buscar por nome da pessoa, número (01-80) ou prêmio..."
+                                class="w-full pl-10 pr-4 py-2.5 rounded-xl bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-700 text-xs sm:text-sm font-semibold text-slate-900 dark:text-white focus:outline-none focus:border-amber-500">
+                        </div>
+                        <select id="adm-filter-chosen-type" onchange="renderAdminTrackingTable()"
+                            class="px-3.5 py-2.5 rounded-xl bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-700 text-xs font-bold text-slate-700 dark:text-slate-200 focus:outline-none focus:border-amber-500">
+                            <option value="all">Todos os Escolhidos</option>
+                            <option value="major">👑 Apenas Prêmios Físicos / Alares</option>
+                            <option value="candy">🍫 Apenas Doces & Mimos</option>
+                            <option value="pending">⏳ Entrega Pendente</option>
+                            <option value="delivered">✅ Prêmio Já Entregue</option>
+                        </select>
+                    </div>
+                    <div class="flex flex-wrap items-center gap-2">
+                        <button onclick="copyHistoryText()" class="px-3.5 py-2.5 rounded-xl bg-emerald-600 hover:bg-emerald-500 text-white text-xs font-extrabold flex items-center gap-1.5 shadow-sm transition">
+                            <i class="ph-fill ph-whatsapp-logo text-base"></i>
+                            <span>Copiar Relatório WhatsApp</span>
+                        </button>
+                        <button onclick="exportHistoryCSV()" class="px-3.5 py-2.5 rounded-xl bg-white dark:bg-slate-900 hover:bg-slate-100 text-slate-700 dark:text-slate-200 border border-slate-200 dark:border-slate-700 text-xs font-bold flex items-center gap-1.5 transition">
+                            <i class="ph-bold ph-download-simple text-base"></i>
+                            <span>Baixar Planilha (Excel)</span>
+                        </button>
+                    </div>
+                </div>
+
+                <!-- Chosen Numbers Table (Nome da Pessoa + Número + Prêmio + Status Entrega) -->
+                <div id="adm-tracking-list" class="space-y-2.5">
+                    <!-- Populated via JS -->
+                </div>
+            </div>
+
+            <!-- ========================================== -->
+            <!-- TAB 2: GABARITO SECRETO DE 01 A 80         -->
+            <!-- ========================================== -->
+            <div id="adm-panel-map" class="hidden p-4 sm:p-6 overflow-y-auto space-y-4 flex-1">
+                <div class="flex flex-col md:flex-row md:items-center justify-between gap-3 bg-amber-50 dark:bg-slate-800/80 p-4 rounded-2xl border border-amber-200 dark:border-slate-700">
+                    <div>
+                        <h3 class="font-display font-black text-base text-slate-900 dark:text-white flex items-center gap-2">
+                            <i class="ph-fill ph-map-trifold text-amber-500 text-lg"></i>
+                            <span>Gabarito Oficial de 01 a 80 (Visão Exclusiva do Admin)</span>
+                        </h3>
+                        <p class="text-xs text-slate-600 dark:text-slate-300 mt-0.5">
+                            Consulte qual prêmio está em cada número, quem já escolheu ou filtre para localizar qualquer prêmio específico.
+                        </p>
+                    </div>
+                    <div class="flex flex-wrap items-center gap-2">
+                        <input type="text" id="adm-map-search" oninput="renderAdminSecretMap()"
+                            placeholder="Filtrar nº, prêmio ou pessoa..."
+                            class="px-3 py-2 rounded-xl bg-white dark:bg-slate-900 border border-slate-300 dark:border-slate-700 text-xs font-bold text-slate-900 dark:text-white focus:outline-none focus:border-amber-500">
+                        <select id="adm-map-filter" onchange="renderAdminSecretMap()"
+                            class="px-3 py-2 rounded-xl bg-white dark:bg-slate-900 border border-slate-300 dark:border-slate-700 text-xs font-bold text-slate-800 dark:text-slate-200">
+                            <option value="all">Todos (01 a 80)</option>
+                            <option value="available">🟢 Apenas Livres</option>
+                            <option value="opened">🔴 Apenas Escolhidos</option>
+                            <option value="major">👑 Prêmios Físicos/Alares (20)</option>
+                        </select>
+                        <button onclick="togglePeekMode(); renderAdminSecretMap();" id="adm-btn-peek-toggle"
+                            class="px-3.5 py-2 rounded-xl bg-slate-900 dark:bg-amber-500 text-white dark:text-slate-950 text-xs font-extrabold flex items-center gap-1.5">
+                            <i class="ph-bold ph-eye"></i>
+                            <span>Olho Mágico no Bingo</span>
+                        </button>
+                    </div>
+                </div>
+
+                <div id="adm-secret-map-grid" class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-4 gap-2.5">
+                    <!-- Populated via JS -->
+                </div>
+            </div>
+
+            <!-- ========================================== -->
+            <!-- TAB 3: ESTOQUE EXATO DOS 11 PRÊMIOS (80)   -->
+            <!-- ========================================== -->
+            <div id="adm-panel-inventory" class="hidden p-4 sm:p-6 overflow-y-auto space-y-4 flex-1">
+                <div class="p-4 rounded-2xl bg-indigo-50/80 dark:bg-slate-800/70 border border-indigo-200 dark:border-slate-700 flex flex-wrap items-center justify-between gap-2">
+                    <div>
+                        <h3 class="font-display font-black text-base text-slate-900 dark:text-white">Controle de Estoque das 80 Premiações Alares</h3>
+                        <p class="text-xs text-slate-600 dark:text-slate-400">Veja em quais números cada prêmio está posicionado, quantos já saíram e quem ganhou.</p>
+                    </div>
+                </div>
+                <div id="adm-inventory-grid" class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-3.5">
+                    <!-- Populated via JS -->
+                </div>
+            </div>
+
+            <!-- ========================================== -->
+            <!-- TAB 4: SEGURANÇA, ROLETA E REEMBARALHAR    -->
+            <!-- ========================================== -->
+            <div id="adm-panel-settings" class="hidden p-4 sm:p-6 overflow-y-auto space-y-5 flex-1">
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+                    <!-- Anti-Fraud Rules Card -->
+                    <div class="p-5 rounded-2xl bg-slate-50 dark:bg-slate-800/60 border border-slate-200 dark:border-slate-700 space-y-3.5">
+                        <div class="flex items-center gap-2">
+                            <i class="ph-fill ph-shield-check text-emerald-500 text-xl"></i>
+                            <h3 class="font-display font-black text-base text-slate-900 dark:text-white">Regras Anti-Fraude do Sorteio</h3>
+                        </div>
+                        <p class="text-xs text-slate-500 dark:text-slate-400">
+                            Os números lá embaixo no Bingo são bloqueados para clique direto. O participante só libera o número preenchendo Nome + Senha no topo.
+                        </p>
+
+                        <!-- Toggle 1: Optional Block same person name from playing twice (Disabled by default so people can play multiple times) -->
+                        <label class="flex items-center justify-between p-3 rounded-xl bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-700 cursor-pointer">
+                            <div>
+                                <div class="text-xs font-extrabold text-slate-900 dark:text-white">👤 Limitar a 1 Número por Nome (Desativado = Pode jogar várias vezes)</div>
+                                <div class="text-[11px] text-slate-500">Deixe desmarcado para permitir que a mesma pessoa participe várias vezes com números diferentes</div>
+                            </div>
+                            <input type="checkbox" id="chk-unique-name" onchange="toggleUniqueNameRule(this.checked)" class="w-5 h-5 accent-amber-500 rounded cursor-pointer">
+                        </label>
+
+                        <!-- Toggle 2: Block same device from playing twice -->
+                        <label class="flex items-center justify-between p-3 rounded-xl bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-700 cursor-pointer">
+                            <div>
+                                <div class="text-xs font-extrabold text-slate-900 dark:text-white">📱 1 Escolha por Aparelho/Celular</div>
+                                <div class="text-[11px] text-slate-500">Ative se cada pessoa usar o próprio celular. Desative se todos usarem o seu computador.</div>
+                            </div>
+                            <input type="checkbox" id="chk-device-lock" onchange="toggleDeviceLockRule(this.checked)" class="w-5 h-5 accent-amber-500 rounded cursor-pointer">
+                        </label>
+                    </div>
+
+                    <!-- Password Mode & Admin PIN 7777 Card -->
+                    <div class="p-5 rounded-2xl bg-slate-50 dark:bg-slate-800/60 border border-slate-200 dark:border-slate-700 space-y-3.5">
+                        <div class="flex items-center justify-between">
+                            <div class="flex items-center gap-2">
+                                <i class="ph-fill ph-key text-amber-500 text-xl"></i>
+                                <h3 class="font-display font-black text-base text-slate-900 dark:text-white">Modo de Senha dos Participantes</h3>
+                            </div>
+                            <span class="px-2.5 py-0.5 rounded-md bg-slate-900 text-amber-400 text-[11px] font-mono font-bold">Admin: 7777</span>
+                        </div>
+
+                        <div class="grid grid-cols-1 sm:grid-cols-2 gap-2">
+                            <button onclick="setPasswordSecurityMode('numeric_or_pin')" id="btn-sec-mode-numeric"
+                                class="p-3 rounded-xl text-xs font-extrabold transition text-left border">
+                                <div>🔢 Senha = Número (01 a 80)</div>
+                                <div class="text-[10px] opacity-80 font-normal mt-0.5">A pessoa coloca o Nome e a Senha é o nº escolhido de 1 a 80</div>
+                            </button>
+                            <button onclick="setPasswordSecurityMode('strict_pin')" id="btn-sec-mode-strict"
+                                class="p-3 rounded-xl text-xs font-extrabold transition text-left border">
+                                <div>🛡️ Código PIN Secreto</div>
+                                <div class="text-[10px] opacity-80 font-normal mt-0.5">Exige código PIN individual gerado p/ cada número</div>
+                            </button>
+                        </div>
+
+                        <div class="flex flex-wrap gap-2 pt-1">
+                            <button onclick="generatePasswordsPreset('numbers')" class="px-3 py-2 rounded-lg bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-700 text-xs font-bold">
+                                Usar Senhas 01 a 80 (Padrão)
+                            </button>
+                            <button onclick="generatePasswordsPreset('random_pin')" class="px-3 py-2 rounded-lg bg-amber-500 text-slate-950 text-xs font-extrabold">
+                                Gerar 80 PINs Secretos
+                            </button>
+                            <button onclick="copyAllPasswordsWhatsApp()" class="px-3 py-2 rounded-lg bg-emerald-600 text-white text-xs font-extrabold">
+                                Copiar Lista de Senhas
+                            </button>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Event Title & Admin Roulette -->
+                <div class="p-5 rounded-2xl bg-slate-50 dark:bg-slate-800/60 border border-slate-200 dark:border-slate-700 space-y-4">
+                    <h3 class="font-display font-black text-base text-slate-900 dark:text-white">Personalizar Cabeçalho & Roleta do Admin</h3>
+                    <div class="grid grid-cols-1 sm:grid-cols-2 gap-3">
+                        <div>
+                            <label class="block text-xs font-bold text-slate-500 mb-1">Título do Evento</label>
+                            <input type="text" id="admin-input-title" class="w-full px-3.5 py-2.5 rounded-xl bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-700 text-sm font-bold text-slate-900 dark:text-white">
+                        </div>
+                        <div>
+                            <label class="block text-xs font-bold text-slate-500 mb-1">Subtítulo / Instrução</label>
+                            <input type="text" id="admin-input-subtitle" class="w-full px-3.5 py-2.5 rounded-xl bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-700 text-sm font-bold text-slate-900 dark:text-white">
+                        </div>
+                    </div>
+                    <div class="flex flex-wrap items-center justify-between gap-3 pt-2">
+                        <button onclick="saveAdminSettings()" class="px-5 py-2.5 rounded-xl bg-slate-900 dark:bg-amber-500 text-white dark:text-slate-950 font-display font-black text-xs sm:text-sm">
+                            Salvar Textos
+                        </button>
+                        <button onclick="closeAdminDashboard(); startGridRoulette();" class="px-4 py-2.5 rounded-xl bg-gradient-to-r from-amber-500 to-rose-500 text-white font-display font-black text-xs sm:text-sm flex items-center gap-1.5 shadow-sm">
+                            <i class="ph-fill ph-dice-five text-base"></i>
+                            <span>[ADMIN] Sortear um Número na Roleta</span>
+                        </button>
+                    </div>
+                </div>
+
+                <!-- Smart Anti-Cluster Reset Box -->
+                <div class="p-5 rounded-2xl bg-rose-50 dark:bg-rose-950/30 border-2 border-rose-200 dark:border-rose-800/60 flex flex-wrap items-center justify-between gap-4">
+                    <div class="max-w-xl">
+                        <div class="font-display font-black text-base text-rose-900 dark:text-rose-200 flex items-center gap-2">
+                            <i class="ph-fill ph-shuffle text-xl"></i>
+                            <span>Reiniciar Sorteio e Reembaralhar os 80 Prêmios (Anti-Agrupamento)</span>
+                        </div>
+                        <p class="text-xs text-rose-700 dark:text-rose-300 mt-1">
+                            Zera todos os números escolhidos e redistribui os 80 prêmios da Alares de forma 100% aleatória e espaçada (garantindo que os grandes prêmios não fiquem colados uns nos outros).
+                        </p>
+                    </div>
+                    <button id="btn-ask-reset" type="button" onclick="showResetConfirmation()" class="px-5 py-3 rounded-xl bg-rose-600 hover:bg-rose-500 text-white text-xs sm:text-sm font-extrabold shadow-sm transition">
+                        Zerar & Reembaralhar 80 Prêmios
+                    </button>
+                    <div id="reset-confirm-buttons" class="hidden items-center gap-2">
+                        <button type="button" onclick="confirmFullReset()" class="px-4 py-2.5 rounded-xl bg-rose-700 hover:bg-rose-600 text-white text-xs font-black">
+                            ✅ Confirmar Novo Embaralhamento
+                        </button>
+                        <button type="button" onclick="cancelResetConfirmation()" class="px-3.5 py-2.5 rounded-xl bg-white dark:bg-slate-800 text-slate-700 dark:text-slate-300 text-xs font-bold border border-slate-300 dark:border-slate-700">
+                            Cancelar
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- ========================================================== -->
+    <!-- MODAL 7: LOGIN EXCLUSIVO DO ADMIN (SENHA 7777)             -->
+    <!-- ========================================================== -->
+    <div id="modal-organizer-auth" class="fixed inset-0 z-[60] hidden items-center justify-center p-4 bg-slate-900/80 dark:bg-slate-950/90 backdrop-blur-md">
+        <div class="w-full max-w-sm bg-white dark:bg-slate-900 rounded-3xl border-2 border-amber-400/80 dark:border-slate-700 shadow-2xl p-6 text-center relative animate-pop-reveal">
+            <button onclick="closeOrganizerAuthModal()" class="absolute top-4 right-4 w-8 h-8 rounded-full bg-slate-100 dark:bg-slate-800 text-slate-500 flex items-center justify-center">
+                <i class="ph-bold ph-x"></i>
+            </button>
+            <div class="w-14 h-14 rounded-2xl bg-slate-900 dark:bg-amber-500 text-amber-400 dark:text-slate-950 flex items-center justify-center mx-auto mb-3 shadow-md">
+                <i class="ph-fill ph-shield-star text-3xl"></i>
+            </div>
+            <h3 class="font-display font-black text-xl text-slate-900 dark:text-white">Acesso Exclusivo Admin</h3>
+            <p class="text-xs text-slate-500 dark:text-slate-400 mt-1">
+                Digite a senha de administrador para acompanhar os números escolhidos, ganhadores e controlar o sorteio.
+            </p>
+
+            <form onsubmit="event.preventDefault(); verifyOrganizerAuth();" class="mt-4 space-y-3">
+                <input type="password" inputmode="numeric" id="organizer-auth-input" placeholder="Senha Admin..." required
+                    class="w-full px-4 py-3 rounded-xl bg-slate-50 dark:bg-slate-800 border-2 border-slate-200 dark:border-slate-700 text-center text-xl font-black tracking-widest text-slate-900 dark:text-white focus:outline-none focus:border-amber-500">
+
+                <!-- Quick Numeric Keypad for Easy Mobile/Desktop Login -->
+                <div class="grid grid-cols-3 gap-2 pt-1">
+                    <button type="button" onclick="appendAdminPinDigit('1')" class="py-2.5 rounded-xl bg-slate-100 dark:bg-slate-800 hover:bg-amber-100 dark:hover:bg-slate-700 font-display font-black text-base text-slate-800 dark:text-white transition">1</button>
+                    <button type="button" onclick="appendAdminPinDigit('2')" class="py-2.5 rounded-xl bg-slate-100 dark:bg-slate-800 hover:bg-amber-100 dark:hover:bg-slate-700 font-display font-black text-base text-slate-800 dark:text-white transition">2</button>
+                    <button type="button" onclick="appendAdminPinDigit('3')" class="py-2.5 rounded-xl bg-slate-100 dark:bg-slate-800 hover:bg-amber-100 dark:hover:bg-slate-700 font-display font-black text-base text-slate-800 dark:text-white transition">3</button>
+                    <button type="button" onclick="appendAdminPinDigit('4')" class="py-2.5 rounded-xl bg-slate-100 dark:bg-slate-800 hover:bg-amber-100 dark:hover:bg-slate-700 font-display font-black text-base text-slate-800 dark:text-white transition">4</button>
+                    <button type="button" onclick="appendAdminPinDigit('5')" class="py-2.5 rounded-xl bg-slate-100 dark:bg-slate-800 hover:bg-amber-100 dark:hover:bg-slate-700 font-display font-black text-base text-slate-800 dark:text-white transition">5</button>
+                    <button type="button" onclick="appendAdminPinDigit('6')" class="py-2.5 rounded-xl bg-slate-100 dark:bg-slate-800 hover:bg-amber-100 dark:hover:bg-slate-700 font-display font-black text-base text-slate-800 dark:text-white transition">6</button>
+                    <button type="button" onclick="appendAdminPinDigit('7')" class="py-2.5 rounded-xl bg-slate-100 dark:bg-slate-800 hover:bg-amber-100 dark:hover:bg-slate-700 font-display font-black text-base text-slate-800 dark:text-white transition">7</button>
+                    <button type="button" onclick="appendAdminPinDigit('8')" class="py-2.5 rounded-xl bg-slate-100 dark:bg-slate-800 hover:bg-amber-100 dark:hover:bg-slate-700 font-display font-black text-base text-slate-800 dark:text-white transition">8</button>
+                    <button type="button" onclick="appendAdminPinDigit('9')" class="py-2.5 rounded-xl bg-slate-100 dark:bg-slate-800 hover:bg-amber-100 dark:hover:bg-slate-700 font-display font-black text-base text-slate-800 dark:text-white transition">9</button>
+                    <button type="button" onclick="clearAdminPinDigits()" class="py-2.5 rounded-xl bg-rose-50 dark:bg-rose-950/40 text-rose-600 dark:text-rose-300 font-bold text-xs transition">Limpar</button>
+                    <button type="button" onclick="appendAdminPinDigit('0')" class="py-2.5 rounded-xl bg-slate-100 dark:bg-slate-800 hover:bg-amber-100 dark:hover:bg-slate-700 font-display font-black text-base text-slate-800 dark:text-white transition">0</button>
+                    <button type="submit" class="py-2.5 rounded-xl bg-emerald-600 hover:bg-emerald-500 text-white font-extrabold text-xs transition">Entrar ↵</button>
+                </div>
+
+                <div id="organizer-auth-error" class="hidden text-xs font-bold text-rose-600">Senha incorreta! Apenas o administrador tem acesso.</div>
+                <button type="submit" class="w-full py-3.5 rounded-xl bg-slate-900 dark:bg-amber-500 hover:opacity-95 text-white dark:text-slate-950 font-display font-black text-sm shadow-md">
+                    Desbloquear Painel Admin
+                </button>
+            </form>
+        </div>
+    </div>
+
+    <!-- ========================================================== -->
+    <!-- MODAL 2: VITRINE DOS 80 PRÊMIOS (CATALOG)                  -->
+    <!-- ========================================================== -->
+    <div id="modal-catalog" class="fixed inset-0 z-50 hidden items-center justify-center p-4 bg-slate-900/65 dark:bg-slate-950/80 backdrop-blur-md">
+        <div class="w-full max-w-4xl bg-white dark:bg-slate-900 rounded-3xl border border-slate-200 dark:border-slate-800 shadow-2xl flex flex-col max-h-[88vh] overflow-hidden">
+            <div class="p-5 sm:p-6 border-b border-slate-200 dark:border-slate-800 flex items-center justify-between gap-4">
+                <div>
+                    <h2 class="font-display font-black text-xl sm:text-2xl text-slate-900 dark:text-white flex items-center gap-2">
+                        <i class="ph-fill ph-gift text-pink-500"></i>
+                        <span>Premiações Oficiais do Sorteio Alares (80 Prêmios)</span>
+                    </h2>
+                    <p class="text-xs sm:text-sm text-slate-500 dark:text-slate-400 mt-0.5">
+                        Todos os 80 números de 01 a 80 são premiados! Confira os itens que estão espalhados no Bingo:
+                    </p>
+                </div>
+                <button onclick="closeCatalogModal()" class="w-10 h-10 rounded-full bg-slate-100 dark:bg-slate-800 hover:bg-slate-200 text-slate-600 dark:text-slate-300 flex items-center justify-center">
+                    <i class="ph-bold ph-x text-lg"></i>
+                </button>
+            </div>
+
+            <div id="catalog-list-container" class="p-5 overflow-y-auto grid grid-cols-1 sm:grid-cols-2 gap-3 flex-1"></div>
+        </div>
+    </div>
+
+    <!-- ========================================================== -->
+    <!-- APPLICATION JAVASCRIPT                                     -->
+    <!-- ========================================================== -->
+    <script>
+        const STORAGE_KEY = 'sorteio_premiado_80_alares_v3';
+        const DEVICE_LOCK_KEY = 'sorteio_alares_80_device_played';
+        const TOTAL_NUMBERS = 80;
+        const ADMIN_MASTER_PIN = '7777';
+
+        // Rarity Configuration (Diamante, Ouro, Prata Alares, Mimos)
+        const RARITY_META = {
+            legendary: {
+                id: 'legendary',
+                label: 'Super Prêmio',
+                badgeText: '👑 DIAMANTE • SUPER PRÊMIO',
+                shortBadge: '👑 Super Prêmio',
+                cardClass: 'opened-legendary',
+                pillClass: 'bg-amber-500 text-white',
+                softPillClass: 'bg-amber-100 dark:bg-amber-500/20 text-amber-900 dark:text-amber-300 border border-amber-300 dark:border-amber-500/40',
+                textClass: 'text-amber-700 dark:text-amber-400'
+            },
+            epic: {
+                id: 'epic',
+                label: 'Prêmio VIP',
+                badgeText: '🔥 OURO • PRÊMIO VIP',
+                shortBadge: '🔥 Prêmio VIP',
+                cardClass: 'opened-epic',
+                pillClass: 'bg-fuchsia-600 text-white',
+                softPillClass: 'bg-fuchsia-100 dark:bg-fuchsia-500/20 text-fuchsia-900 dark:text-fuchsia-300 border border-fuchsia-300 dark:border-fuchsia-500/40',
+                textClass: 'text-fuchsia-700 dark:text-fuchsia-400'
+            },
+            rare: {
+                id: 'rare',
+                label: 'Exclusivo Alares',
+                badgeText: '🥤 PRATA • EXCLUSIVO ALARES',
+                shortBadge: '🥤 Alares',
+                cardClass: 'opened-rare',
+                pillClass: 'bg-sky-600 text-white',
+                softPillClass: 'bg-sky-100 dark:bg-sky-500/20 text-sky-900 dark:text-sky-300 border border-sky-300 dark:border-sky-500/40',
+                textClass: 'text-sky-700 dark:text-sky-400'
+            },
+            common: {
+                id: 'common',
+                label: 'Mimo Delicioso',
+                badgeText: '🍫 MIMO ESPECIAL PREMIADO',
+                shortBadge: '🍫 Mimo',
+                cardClass: 'opened-common',
+                pillClass: 'bg-emerald-600 text-white',
+                softPillClass: 'bg-emerald-100 dark:bg-emerald-500/20 text-emerald-900 dark:text-emerald-300 border border-emerald-300 dark:border-emerald-500/40',
+                textClass: 'text-emerald-700 dark:text-emerald-400'
+            }
+        };
+
+        // ============================================================================
+        // EXACT 80 PRIZES DEFINITION (ALARES SPECIFICATION)
+        // 9 Copões Alares + 2 Copo Stanley + 2 Caixa de som bluetooth + 2 Bolsa térmica
+        // + 1 Headphone bluetooth + 1 Chaveiro Alares + 2 Canivete multifunção + 1 Mochila
+        // + 20 Dadinhos de amendoim + 20 Balas Chita + 20 Bombons Sonho de Valsa = 80!
+        // ============================================================================
+        const ALARES_PRIZE_SPECS = [
+            { count: 2,  rarity: 'legendary', emoji: '🧊', name: 'Copo Stanley',              isMajor: true },
+            { count: 2,  rarity: 'legendary', emoji: '🔊', name: 'Caixa de som bluetooth',    isMajor: true },
+            { count: 1,  rarity: 'legendary', emoji: '🎧', name: 'Headphone bluetooth',       isMajor: true },
+            { count: 1,  rarity: 'legendary', emoji: '🎒', name: 'Mochila',                   isMajor: true },
+            { count: 2,  rarity: 'epic',      emoji: '❄️', name: 'Bolsa térmica',             isMajor: true },
+            { count: 2,  rarity: 'epic',      emoji: '🛠️', name: 'Canivete multifunção',      isMajor: true },
+            { count: 9,  rarity: 'rare',      emoji: '🥤', name: 'Copão Alares',              isMajor: true },
+            { count: 1,  rarity: 'rare',      emoji: '🔑', name: 'Chaveiro Alares',           isMajor: true },
+            { count: 20, rarity: 'common',    emoji: '🍬', name: 'Bombom Sonho de Valsa',     isMajor: false },
+            { count: 20, rarity: 'common',    emoji: '🥜', name: 'Dadinho de amendoim',       isMajor: false },
+            { count: 20, rarity: 'common',    emoji: '🍭', name: 'Bala Chita',                isMajor: false }
+        ];
+
+        // Application State
+        let state = {
+            title: 'Sorteio Premiado Alares 80',
+            subtitle: 'Cadastre seu nome e digite sua senha (número de 01 a 80) para liberar seu prêmio no Bingo!',
+            darkMode: false,
+            soundEnabled: true,
+            peekMode: false,
+            statusFilter: 'all',
+            searchQuery: '',
+            securityMode: 'numeric_or_pin',
+            uniqueNameLock: false,   // Permite que a mesma pessoa participe várias vezes com o mesmo nome
+            deviceSingleLock: false, // Permite múltiplas participações no mesmo aparelho
+            masterPassword: ADMIN_MASTER_PIN,
+            items: []
+        };
+
+        let activeModalNumber = null;
+        let isRouletteRunning = false;
+        let audioCtx = null;
+        let unboxTimeoutId = null;
+        let organizerUnlocked = false;
+        let pendingOrganizerCallback = null;
+        let currentAdminTab = 'tracking';
+
+        // ==========================================
+        // WEB AUDIO API SOUND SYNTHESIZER
+        // ==========================================
+        function getAudioContext() {
+            if (!audioCtx) {
+                const AudioContextClass = window.AudioContext || window.webkitAudioContext;
+                if (AudioContextClass) audioCtx = new AudioContextClass();
+            }
+            if (audioCtx && audioCtx.state === 'suspended') {
+                audioCtx.resume();
+            }
+            return audioCtx;
+        }
+
+        function playSound(type, rarity = 'common') {
+            if (!state.soundEnabled) return;
+            try {
+                const ctx = getAudioContext();
+                if (!ctx) return;
+                const now = ctx.currentTime;
+
+                if (type === 'tick') {
+                    const osc = ctx.createOscillator();
+                    const gain = ctx.createGain();
+                    osc.type = 'sine';
+                    osc.frequency.setValueAtTime(680, now);
+                    osc.frequency.exponentialRampToValueAtTime(260, now + 0.04);
+                    gain.gain.setValueAtTime(0.15, now);
+                    gain.gain.exponentialRampToValueAtTime(0.001, now + 0.04);
+                    osc.connect(gain);
+                    gain.connect(ctx.destination);
+                    osc.start(now);
+                    osc.stop(now + 0.045);
+                } else if (type === 'error') {
+                    const osc = ctx.createOscillator();
+                    const gain = ctx.createGain();
+                    osc.type = 'sawtooth';
+                    osc.frequency.setValueAtTime(190, now);
+                    osc.frequency.linearRampToValueAtTime(130, now + 0.18);
+                    gain.gain.setValueAtTime(0.14, now);
+                    gain.gain.exponentialRampToValueAtTime(0.001, now + 0.2);
+                    osc.connect(gain);
+                    gain.connect(ctx.destination);
+                    osc.start(now);
+                    osc.stop(now + 0.22);
+                } else if (type === 'suspense') {
+                    for (let i = 0; i < 6; i++) {
+                        const osc = ctx.createOscillator();
+                        const gain = ctx.createGain();
+                        const start = now + i * 0.075;
+                        osc.type = 'sine';
+                        osc.frequency.setValueAtTime(280 + i * 65, start);
+                        gain.gain.setValueAtTime(0.12, start);
+                        gain.gain.exponentialRampToValueAtTime(0.001, start + 0.065);
+                        osc.connect(gain);
+                        gain.connect(ctx.destination);
+                        osc.start(start);
+                        osc.stop(start + 0.07);
+                    }
+                } else if (type === 'win') {
+                    const chords = {
+                        common: [523.25, 659.25, 783.99, 1046.50],
+                        rare: [587.33, 739.99, 880.00, 1174.66],
+                        epic: [523.25, 659.25, 783.99, 987.77, 1318.51],
+                        legendary: [523.25, 659.25, 783.99, 1046.50, 1318.51, 1567.98]
+                    };
+                    const notes = chords[rarity] || chords.common;
+                    notes.forEach((freq, idx) => {
+                        const osc = ctx.createOscillator();
+                        const gain = ctx.createGain();
+                        const start = now + idx * 0.07;
+                        osc.type = 'triangle';
+                        osc.frequency.setValueAtTime(freq, start);
+                        gain.gain.setValueAtTime(0.18, start);
+                        gain.gain.exponentialRampToValueAtTime(0.001, start + 0.65);
+                        osc.connect(gain);
+                        gain.connect(ctx.destination);
+                        osc.start(start);
+                        osc.stop(start + 0.7);
+                    });
+                }
+            } catch (e) {}
+        }
+
+        // =========================================================================
+        // SMART ANTI-CLUSTERING SHUFFLE ENGINE
+        // Ensures the 20 main prizes (Stanley, JBL, Headphone, Mochila, Bolsa,
+        // Canivete, Copões Alares, Chaveiro) are randomly spread across 1..80
+        // and NEVER clumped right next to each other, and identical candies alternate!
+        // =========================================================================
+        function shuffleArray(arr) {
+            const copy = [...arr];
+            for (let i = copy.length - 1; i > 0; i--) {
+                const j = Math.floor(Math.random() * (i + 1));
+                [copy[i], copy[j]] = [copy[j], copy[i]];
+            }
+            return copy;
+        }
+
+        function generateAntiClustered80Prizes() {
+            const highTierMajors = [];
+            const copoesAlares = [];
+            const candyBuckets = [[], [], []];
+
+            ALARES_PRIZE_SPECS.forEach(spec => {
+                for (let c = 0; c < spec.count; c++) {
+                    const obj = { rarity: spec.rarity, emoji: spec.emoji, name: spec.name, isMajor: spec.isMajor };
+                    if (spec.name === 'Copão Alares') {
+                        copoesAlares.push(obj);
+                    } else if (spec.isMajor) {
+                        highTierMajors.push(obj);
+                    } else if (spec.name.includes('Sonho de Valsa')) {
+                        candyBuckets[0].push(obj);
+                    } else if (spec.name.includes('Dadinho')) {
+                        candyBuckets[1].push(obj);
+                    } else {
+                        candyBuckets[2].push(obj);
+                    }
+                }
+            });
+
+            const shuffledHigh = shuffleArray(highTierMajors);
+            for (let i = 1; i < shuffledHigh.length; i++) {
+                if (shuffledHigh[i].name === shuffledHigh[i - 1].name) {
+                    const swapIdx = (i + 2) % shuffledHigh.length;
+                    [shuffledHigh[i], shuffledHigh[swapIdx]] = [shuffledHigh[swapIdx], shuffledHigh[i]];
+                }
+            }
+
+            const orderedMajors = [];
+            let hIdx = 0, cIdx = 0;
+            while (hIdx < shuffledHigh.length || cIdx < copoesAlares.length) {
+                if (hIdx < shuffledHigh.length) orderedMajors.push(shuffledHigh[hIdx++]);
+                if (cIdx < copoesAlares.length) orderedMajors.push(copoesAlares[cIdx++]);
+            }
+
+            const board = new Array(TOTAL_NUMBERS).fill(null);
+            let prevMajorPos = -5;
+
+            for (let zone = 0; zone < 20; zone++) {
+                const start = zone * 4;
+                const candidates = [];
+                for (let offset = 0; offset < 4; offset++) {
+                    const pos = start + offset;
+                    if (pos - prevMajorPos >= 2) {
+                        candidates.push(pos);
+                    }
+                }
+                const chosenPos = candidates[Math.floor(Math.random() * candidates.length)];
+                board[chosenPos] = orderedMajors[zone];
+                prevMajorPos = chosenPos;
+            }
+
+            const orderedCandies = [];
+            for (let i = 0; i < 20; i++) {
+                let triplet = shuffleArray([
+                    candyBuckets[0][i],
+                    candyBuckets[1][i],
+                    candyBuckets[2][i]
+                ]);
+                if (orderedCandies.length > 0 && triplet[0].name === orderedCandies[orderedCandies.length - 1].name) {
+                    [triplet[0], triplet[1]] = [triplet[1], triplet[0]];
+                }
+                orderedCandies.push(...triplet);
+            }
+
+            let candyPtr = 0;
+            for (let pos = 0; pos < TOTAL_NUMBERS; pos++) {
+                if (!board[pos]) {
+                    board[pos] = orderedCandies[candyPtr++];
+                }
+            }
+
+            return board;
+        }
+
+        function generateAuthHash(num) {
+            const chars = 'ABCDEFGHJKLMNPQRSTUVWXYZ23456789';
+            let suffix = '';
+            for (let i = 0; i < 4; i++) {
+                suffix += chars[Math.floor(Math.random() * chars.length)];
+            }
+            return `ALARES-#${formatNum(num)}-${suffix}`;
+        }
+
+        function createInitialItems(existingPasswords = null) {
+            const spacedPrizes = generateAntiClustered80Prizes();
+            const items = [];
+            for (let i = 1; i <= TOTAL_NUMBERS; i++) {
+                const p = spacedPrizes[i - 1];
+                const defaultPin = existingPasswords && existingPasswords[i - 1]
+                    ? existingPasswords[i - 1]
+                    : formatNum(i);
+                items.push({
+                    number: i,
+                    password: defaultPin,
+                    rarity: p.rarity || 'common',
+                    emoji: p.emoji || '🎁',
+                    prizeName: p.name || `Prêmio #${i}`,
+                    isMajor: Boolean(p.isMajor),
+                    opened: false,
+                    delivered: false,
+                    winnerName: '',
+                    openedAt: null,
+                    openedOrder: 0,
+                    authCode: generateAuthHash(i)
+                });
+            }
+            return items;
+        }
+
+        function loadState() {
+            try {
+                const rawV3 = localStorage.getItem(STORAGE_KEY);
+                const rawLegacy = localStorage.getItem('sorteio_premiado_80_alares_v2') || localStorage.getItem('sorteio_premiado_80_alares_v1');
+                const raw = rawV3 || rawLegacy;
+                if (raw) {
+                    const parsed = JSON.parse(raw);
+                    if (parsed && Array.isArray(parsed.items) && parsed.items.length === TOTAL_NUMBERS) {
+                        state = {
+                            ...state,
+                            ...parsed,
+                            peekMode: false,
+                            // Garante que ao atualizar para a v3 o mesmo nome possa participar várias vezes
+                            uniqueNameLock: rawV3 ? Boolean(parsed.uniqueNameLock) : false,
+                            deviceSingleLock: rawV3 ? Boolean(parsed.deviceSingleLock) : false,
+                            masterPassword: ADMIN_MASTER_PIN
+                        };
+                        if (!state.deviceSingleLock) {
+                            localStorage.removeItem(DEVICE_LOCK_KEY);
+                        }
+                        state.items.forEach(item => {
+                            if (!item.password) item.password = formatNum(item.number);
+                            if (!item.authCode) item.authCode = generateAuthHash(item.number);
+                            if (typeof item.delivered === 'undefined') item.delivered = false;
+                            if (typeof item.openedOrder === 'undefined') item.openedOrder = 0;
+                            if (typeof item.isMajor === 'undefined') item.isMajor = item.rarity !== 'common';
+                        });
+                        applyTheme();
+                        saveState();
+                        return;
+                    }
+                }
+            } catch (e) {}
+            state.items = createInitialItems();
+            applyTheme();
+            saveState();
+        }
+
+        function saveState() {
+            try {
+                localStorage.setItem(STORAGE_KEY, JSON.stringify({
+                    title: state.title,
+                    subtitle: state.subtitle,
+                    darkMode: state.darkMode,
+                    soundEnabled: state.soundEnabled,
+                    securityMode: state.securityMode,
+                    uniqueNameLock: state.uniqueNameLock,
+                    deviceSingleLock: state.deviceSingleLock,
+                    masterPassword: ADMIN_MASTER_PIN,
+                    items: state.items
+                }));
+            } catch (e) {}
+        }
+
+        function formatNum(n) {
+            return String(n).padStart(2, '0');
+        }
+
+        function normalizeName(str) {
+            return String(str || '')
+                .trim()
+                .toLowerCase()
+                .normalize('NFD')
+                .replace(/[\u0300-\u036f]/g, '')
+                .replace(/\s+/g, ' ');
+        }
+
+        // ==========================================
+        // EXCLUSIVE ADMIN AUTH (PIN 7777)
+        // ==========================================
+        function appendAdminPinDigit(digit) {
+            const input = document.getElementById('organizer-auth-input');
+            if (input && input.value.length < 16) {
+                input.value += digit;
+                document.getElementById('organizer-auth-error').classList.add('hidden');
+            }
+        }
+
+        function clearAdminPinDigits() {
+            const input = document.getElementById('organizer-auth-input');
+            if (input) input.value = '';
+            document.getElementById('organizer-auth-error').classList.add('hidden');
+        }
+
+        function requireOrganizerAuth(callback) {
+            if (organizerUnlocked) {
+                callback();
+                return;
+            }
+            pendingOrganizerCallback = callback;
+            const modal = document.getElementById('modal-organizer-auth');
+            const input = document.getElementById('organizer-auth-input');
+            const err = document.getElementById('organizer-auth-error');
+
+            err.classList.add('hidden');
+            input.value = '';
+            modal.classList.remove('hidden');
+            modal.classList.add('flex');
+            setTimeout(() => input.focus(), 60);
+        }
+
+        function closeOrganizerAuthModal() {
+            const modal = document.getElementById('modal-organizer-auth');
+            modal.classList.add('hidden');
+            modal.classList.remove('flex');
+            pendingOrganizerCallback = null;
+        }
+
+        function verifyOrganizerAuth() {
+            const val = document.getElementById('organizer-auth-input').value.trim();
+            if (val === ADMIN_MASTER_PIN) {
+                organizerUnlocked = true;
+                updateAdminLockIndicator();
+                renderAll();
+                const cb = pendingOrganizerCallback;
+                closeOrganizerAuthModal();
+                showToast('🔓 Acesso Admin (7777) liberado com sucesso!');
+                if (cb) cb();
+            } else {
+                document.getElementById('organizer-auth-error').classList.remove('hidden');
+                playSound('error');
+            }
+        }
+
+        function lockOrganizerSession() {
+            organizerUnlocked = false;
+            state.peekMode = false;
+            updateAdminLockIndicator();
+            closeAdminDashboard();
+            renderAll();
+            showToast('🔒 Painel Admin trancado com segurança!');
+        }
+
+        function updateAdminLockIndicator() {
+            const dot = document.getElementById('admin-lock-dot');
+            const btnPeek = document.getElementById('btn-peek');
+            if (dot) {
+                dot.className = organizerUnlocked
+                    ? 'w-2.5 h-2.5 rounded-full bg-emerald-500 absolute -top-1 -right-1 border-2 border-white dark:border-slate-900'
+                    : 'w-2.5 h-2.5 rounded-full bg-rose-500 absolute -top-1 -right-1 border-2 border-white dark:border-slate-900';
+            }
+            if (btnPeek) {
+                if (organizerUnlocked) {
+                    btnPeek.classList.remove('hidden');
+                    btnPeek.classList.add('flex');
+                } else {
+                    btnPeek.classList.add('hidden');
+                    btnPeek.classList.remove('flex');
+                }
+            }
+        }
+
+        function handlePeekButtonClick() {
+            if (!organizerUnlocked) {
+                requireOrganizerAuth(() => togglePeekMode());
+                return;
+            }
+            togglePeekMode();
+        }
+
+        // ==========================================
+        // ADMIN DASHBOARD CONTROLS
+        // ==========================================
+        function openAdminDashboard(initialTab = 'tracking') {
+            requireOrganizerAuth(() => {
+                const modal = document.getElementById('modal-admin-dashboard');
+                modal.classList.remove('hidden');
+                modal.classList.add('flex');
+                document.getElementById('admin-input-title').value = state.title;
+                document.getElementById('admin-input-subtitle').value = state.subtitle;
+                document.getElementById('chk-unique-name').checked = Boolean(state.uniqueNameLock);
+                document.getElementById('chk-device-lock').checked = Boolean(state.deviceSingleLock);
+                cancelResetConfirmation();
+                switchAdminTab(initialTab);
+            });
+        }
+
+        function closeAdminDashboard() {
+            const modal = document.getElementById('modal-admin-dashboard');
+            modal.classList.add('hidden');
+            modal.classList.remove('flex');
+        }
+
+        function switchAdminTab(tab) {
+            currentAdminTab = tab;
+            const tabs = ['tracking', 'map', 'inventory', 'settings'];
+            tabs.forEach(t => {
+                const btn = document.getElementById(`adm-tab-${t}`);
+                const panel = document.getElementById(`adm-panel-${t}`);
+                if (t === tab) {
+                    btn.className = 'px-4 py-2.5 rounded-xl text-xs sm:text-sm font-extrabold flex items-center gap-2 whitespace-nowrap transition bg-slate-900 dark:bg-amber-500 text-white dark:text-slate-950 shadow-sm';
+                    panel.classList.remove('hidden');
+                } else {
+                    btn.className = 'px-4 py-2.5 rounded-xl text-xs sm:text-sm font-bold flex items-center gap-2 whitespace-nowrap transition bg-white dark:bg-slate-900 text-slate-600 dark:text-slate-300 hover:bg-slate-200 dark:hover:bg-slate-700';
+                    panel.classList.add('hidden');
+                }
+            });
+
+            if (tab === 'tracking') renderAdminTrackingTable();
+            if (tab === 'map') renderAdminSecretMap();
+            if (tab === 'inventory') renderAdminInventory();
+            if (tab === 'settings') renderAdminSettingsState();
+        }
+
+        function renderAdminTrackingTable() {
+            const opened = state.items
+                .filter(i => i.opened)
+                .sort((a, b) => (b.openedOrder || b.number) - (a.openedOrder || a.number));
+
+            const avail = TOTAL_NUMBERS - opened.length;
+            const majorsLeft = state.items.filter(i => !i.opened && i.rarity !== 'common').length;
+            const candyLeft = state.items.filter(i => !i.opened && i.rarity === 'common').length;
+            const deliveredCount = opened.filter(i => i.delivered).length;
+
+            document.getElementById('adm-kpi-opened').textContent = `${opened.length} / ${TOTAL_NUMBERS}`;
+            document.getElementById('adm-kpi-available').textContent = `${avail}`;
+            document.getElementById('adm-kpi-special-left').textContent = `${majorsLeft} de 20`;
+            document.getElementById('adm-kpi-candy-left').textContent = `${candyLeft} de 60`;
+            document.getElementById('adm-kpi-delivered').textContent = `${deliveredCount} / ${opened.length}`;
+            document.getElementById('adm-badge-chosen').textContent = opened.length;
+
+            const q = (document.getElementById('adm-search-chosen')?.value || '').trim().toLowerCase();
+            const typeFilter = document.getElementById('adm-filter-chosen-type')?.value || 'all';
+            const listEl = document.getElementById('adm-tracking-list');
+            listEl.innerHTML = '';
+
+            const filtered = opened.filter(item => {
+                if (typeFilter === 'major' && item.rarity === 'common') return false;
+                if (typeFilter === 'candy' && item.rarity !== 'common') return false;
+                if (typeFilter === 'pending' && item.delivered) return false;
+                if (typeFilter === 'delivered' && !item.delivered) return false;
+
+                if (!q) return true;
+                const numStr = formatNum(item.number);
+                return numStr.includes(q) ||
+                    String(item.number) === q ||
+                    (item.winnerName || '').toLowerCase().includes(q) ||
+                    (item.prizeName || '').toLowerCase().includes(q);
+            });
+
+            if (filtered.length === 0) {
+                listEl.innerHTML = `
+                    <div class="text-center py-12 bg-slate-50 dark:bg-slate-800/40 rounded-2xl border border-dashed border-slate-300 dark:border-slate-700">
+                        <div class="text-4xl mb-2">📋</div>
+                        <p class="font-display font-bold text-base text-slate-800 dark:text-white">
+                            ${opened.length === 0 ? 'Nenhum número foi escolhido ainda' : 'Nenhum ganhador encontrado para este filtro'}
+                        </p>
+                        <p class="text-xs text-slate-500 dark:text-slate-400 mt-1">
+                            Assim que um participante cadastrar o Nome e a Senha (01 a 80), o registro aparecerá aqui!
+                        </p>
+                    </div>
+                `;
+                return;
+            }
+
+            filtered.forEach(item => {
+                const rMeta = RARITY_META[item.rarity] || RARITY_META.common;
+                const samePersonCount = opened.filter(i => normalizeName(i.winnerName) === normalizeName(item.winnerName)).length;
+                const row = document.createElement('div');
+                row.className = `p-4 rounded-2xl border shadow-sm flex flex-col lg:flex-row lg:items-center justify-between gap-3 transition ${
+                    item.delivered
+                        ? 'bg-emerald-50/40 dark:bg-emerald-950/20 border-emerald-200 dark:border-emerald-800/60'
+                        : 'bg-white dark:bg-slate-800 border-slate-200 dark:border-slate-700'
+                }`;
+                row.innerHTML = `
+                    <div class="flex items-start sm:items-center gap-3.5">
+                        <div class="w-14 h-14 rounded-2xl bg-slate-900 dark:bg-amber-500 text-white dark:text-slate-950 flex flex-col items-center justify-center shrink-0 shadow-sm">
+                            <span class="text-[9px] font-extrabold uppercase opacity-75 leading-none">NÚMERO</span>
+                            <span class="font-display font-black text-xl leading-tight">#${formatNum(item.number)}</span>
+                        </div>
+                        <div class="space-y-1">
+                            <div class="flex flex-wrap items-center gap-2">
+                                <span class="px-2 py-0.5 rounded bg-slate-100 dark:bg-slate-700 text-[10px] font-extrabold uppercase text-slate-600 dark:text-slate-300">
+                                    👤 Nome da Pessoa:
+                                </span>
+                                <span class="font-display font-black text-base sm:text-lg text-slate-900 dark:text-white">${item.winnerName || 'Participante'}</span>
+                                ${samePersonCount > 1 ? `<span class="px-2 py-0.5 rounded-full bg-indigo-100 dark:bg-indigo-950/60 text-indigo-800 dark:text-indigo-300 text-[10px] font-extrabold">${samePersonCount} participações</span>` : ''}
+                                <span class="text-xs font-bold text-slate-400">• ⏰ ${item.openedAt || '--:--'}</span>
+                            </div>
+                            <div class="flex flex-wrap items-center gap-2">
+                                <span class="px-2 py-0.5 rounded bg-amber-100 dark:bg-amber-950/60 text-[10px] font-extrabold uppercase text-amber-800 dark:text-amber-300">
+                                    🎁 Prêmio do Número:
+                                </span>
+                                <span class="font-extrabold text-sm sm:text-base text-amber-600 dark:text-amber-400">${item.emoji} ${item.prizeName}</span>
+                                <span class="px-2 py-0.5 rounded-md text-[10px] font-extrabold uppercase ${rMeta.pillClass}">${rMeta.label}</span>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="flex flex-wrap items-center gap-2 self-end lg:self-center">
+                        <button onclick="togglePrizeDelivered(${item.number})"
+                            class="px-3.5 py-2 rounded-xl text-xs font-extrabold flex items-center gap-1.5 transition ${
+                                item.delivered
+                                    ? 'bg-emerald-600 text-white shadow-sm'
+                                    : 'bg-amber-100 dark:bg-amber-950/60 text-amber-900 dark:text-amber-300 border border-amber-300 dark:border-amber-700 hover:bg-amber-200'
+                            }">
+                            <i class="ph-bold ${item.delivered ? 'ph-check-square' : 'ph-square'} text-sm"></i>
+                            <span>${item.delivered ? 'Prêmio Entregue' : 'Marcar Entregue'}</span>
+                        </button>
+                        <button onclick="closeAdminDashboard(); openExistingTicketModal(${item.number});"
+                            class="px-3 py-2 rounded-xl bg-slate-100 dark:bg-slate-700 hover:bg-slate-200 text-xs font-bold text-slate-700 dark:text-slate-200 transition">
+                            Ver Comprovante
+                        </button>
+                        <button onclick="adminQuickUndoNumber(${item.number})" title="Estornar escolha e liberar este número novamente"
+                            class="px-3 py-2 rounded-xl bg-rose-50 dark:bg-rose-950/50 hover:bg-rose-100 text-xs font-bold text-rose-600 dark:text-rose-300 border border-rose-200 dark:border-rose-800 transition">
+                            Estornar Nº
+                        </button>
+                    </div>
+                `;
+                listEl.appendChild(row);
+            });
+        }
+
+        function togglePrizeDelivered(number) {
+            if (!organizerUnlocked) return;
+            const item = state.items.find(i => i.number === number);
+            if (!item) return;
+            item.delivered = !item.delivered;
+            saveState();
+            renderAdminTrackingTable();
+            showToast(item.delivered
+                ? `✅ Prêmio do Nº #${formatNum(number)} (${item.winnerName}) marcado como ENTREGUE!`
+                : `⏳ Prêmio do Nº #${formatNum(number)} marcado como pendente.`);
+        }
+
+        function adminQuickUndoNumber(number) {
+            if (!organizerUnlocked) return;
+            const item = state.items.find(i => i.number === number);
+            if (!item) return;
+            const oldWinner = item.winnerName;
+            item.opened = false;
+            item.delivered = false;
+            item.winnerName = '';
+            item.openedAt = null;
+            item.openedOrder = 0;
+            item.authCode = generateAuthHash(item.number);
+            localStorage.removeItem(DEVICE_LOCK_KEY);
+            saveState();
+            renderAll();
+            renderAdminTrackingTable();
+            renderAdminSecretMap();
+            showToast(`🔄 Número #${formatNum(number)} (de ${oldWinner || 'Participante'}) foi estornado e está livre novamente!`);
+        }
+
+        function renderAdminInventory() {
+            const grid = document.getElementById('adm-inventory-grid');
+            grid.innerHTML = '';
+
+            ALARES_PRIZE_SPECS.forEach(spec => {
+                const matching = state.items.filter(i => i.prizeName === spec.name);
+                const wonItems = matching.filter(i => i.opened);
+                const freeItems = matching.filter(i => !i.opened);
+                const leftCount = freeItems.length;
+                const rMeta = RARITY_META[spec.rarity] || RARITY_META.common;
+
+                const freeNumsHtml = freeItems.length > 0
+                    ? `<div class="text-[11px] font-semibold text-slate-600 dark:text-slate-300 mt-2">
+                        🔒 <strong>Escondido nos Nºs:</strong> ${freeItems.map(f => `#${formatNum(f.number)}`).join(', ')}
+                       </div>`
+                    : '';
+
+                const winnersListHtml = wonItems.length > 0
+                    ? `<div class="pt-2 mt-2 border-t border-slate-900/10 dark:border-white/10 space-y-1">
+                        <div class="text-[10px] font-extrabold uppercase text-emerald-700 dark:text-emerald-400">✅ Ganhadores (${wonItems.length}):</div>
+                        ${wonItems.map(w => `<div class="text-xs font-bold text-slate-800 dark:text-slate-200 truncate">• <strong>Nº #${formatNum(w.number)}</strong> — ${w.winnerName}</div>`).join('')}
+                       </div>`
+                    : `<div class="pt-2 mt-2 border-t border-slate-900/10 dark:border-white/10 text-[11px] font-semibold text-emerald-700 dark:text-emerald-400">✨ Todos disponíveis no Bingo</div>`;
+
+                const card = document.createElement('div');
+                card.className = `p-4 rounded-2xl border flex flex-col justify-between ${rMeta.cardClass}`;
+                card.innerHTML = `
+                    <div>
+                        <div class="flex items-center justify-between gap-2">
+                            <span class="text-3xl">${spec.emoji}</span>
+                            <span class="px-2.5 py-1 rounded-xl font-display font-black text-xs ${rMeta.pillClass}">
+                                Restam ${leftCount} de ${matching.length}
+                            </span>
+                        </div>
+                        <h4 class="font-display font-black text-base text-slate-900 dark:text-white mt-2">${spec.name}</h4>
+                        <div class="text-xs font-bold text-slate-600 dark:text-slate-300 mt-0.5">
+                            Já Sorteados: <strong>${wonItems.length}</strong> • Ainda Livres: <strong>${leftCount}</strong>
+                        </div>
+                        ${freeNumsHtml}
+                    </div>
+                    ${winnersListHtml}
+                `;
+                grid.appendChild(card);
+            });
+        }
+
+        function renderAdminSecretMap() {
+            const grid = document.getElementById('adm-secret-map-grid');
+            if (!grid) return;
+            grid.innerHTML = '';
+
+            const q = (document.getElementById('adm-map-search')?.value || '').trim().toLowerCase();
+            const filter = document.getElementById('adm-map-filter')?.value || 'all';
+
+            const filtered = state.items.filter(item => {
+                if (filter === 'available' && item.opened) return false;
+                if (filter === 'opened' && !item.opened) return false;
+                if (filter === 'major' && item.rarity === 'common') return false;
+
+                if (!q) return true;
+                const numStr = formatNum(item.number);
+                return numStr.includes(q) ||
+                    String(item.number) === q ||
+                    (item.prizeName || '').toLowerCase().includes(q) ||
+                    (item.winnerName || '').toLowerCase().includes(q);
+            });
+
+            filtered.forEach(item => {
+                const numStr = formatNum(item.number);
+                const rMeta = RARITY_META[item.rarity] || RARITY_META.common;
+                const div = document.createElement('div');
+                div.className = `p-3.5 rounded-2xl border flex flex-col justify-between gap-2 ${
+                    item.opened
+                        ? 'bg-rose-50/80 dark:bg-rose-950/30 border-rose-300 dark:border-rose-800'
+                        : 'bg-white dark:bg-slate-800 border-slate-200 dark:border-slate-700'
+                }`;
+
+                div.innerHTML = `
+                    <div class="flex items-center justify-between gap-1">
+                        <span class="px-2.5 py-0.5 rounded-lg bg-slate-900 dark:bg-amber-500 text-white dark:text-slate-950 font-display font-black text-xs">
+                            Nº #${numStr}
+                        </span>
+                        <span class="px-2 py-0.5 rounded text-[10px] font-extrabold uppercase ${rMeta.pillClass}">
+                            ${rMeta.label}
+                        </span>
+                    </div>
+                    <div class="text-xs font-extrabold text-slate-900 dark:text-white" title="${item.prizeName}">
+                        ${item.emoji} ${item.prizeName}
+                    </div>
+                    <div class="flex items-center justify-between gap-1 pt-1.5 border-t border-slate-200/70 dark:border-slate-700/70 text-[11px]">
+                        ${item.opened ? `
+                            <span class="font-bold text-rose-700 dark:text-rose-300 truncate" title="${item.winnerName}">👤 ${item.winnerName}</span>
+                            <button onclick="adminQuickUndoNumber(${item.number})" class="text-[10px] font-extrabold text-rose-600 underline shrink-0">Estornar</button>
+                        ` : `
+                            <span class="font-bold text-emerald-600 dark:text-emerald-400">🟢 Livre (Senha: ${item.password})</span>
+                        `}
+                    </div>
+                `;
+                grid.appendChild(div);
+            });
+        }
+
+        function renderAdminSettingsState() {
+            const btnNum = document.getElementById('btn-sec-mode-numeric');
+            const btnStrict = document.getElementById('btn-sec-mode-strict');
+            if (!btnNum || !btnStrict) return;
+
+            if (state.securityMode === 'numeric_or_pin') {
+                btnNum.className = 'p-3 rounded-xl text-xs font-extrabold transition text-left border-2 border-amber-500 bg-amber-500 text-slate-950 shadow-sm';
+                btnStrict.className = 'p-3 rounded-xl text-xs font-bold transition text-left border border-slate-200 dark:border-slate-700 bg-white dark:bg-slate-900 text-slate-600 dark:text-slate-400';
+            } else {
+                btnStrict.className = 'p-3 rounded-xl text-xs font-extrabold transition text-left border-2 border-amber-500 bg-amber-500 text-slate-950 shadow-sm';
+                btnNum.className = 'p-3 rounded-xl text-xs font-bold transition text-left border border-slate-200 dark:border-slate-700 bg-white dark:bg-slate-900 text-slate-600 dark:text-slate-400';
+            }
+        }
+
+        function toggleUniqueNameRule(checked) {
+            state.uniqueNameLock = Boolean(checked);
+            saveState();
+            renderAll();
+            showToast(state.uniqueNameLock
+                ? '🛡️ Trava de 1 Número por Nome ativada!'
+                : '🔓 Múltiplas participações liberadas: a mesma pessoa pode escolher mais números!');
+        }
+
+        function toggleDeviceLockRule(checked) {
+            state.deviceSingleLock = Boolean(checked);
+            if (!state.deviceSingleLock) {
+                localStorage.removeItem(DEVICE_LOCK_KEY);
+            }
+            saveState();
+            showToast(state.deviceSingleLock
+                ? '📱 Trava de 1 Escolha por Aparelho ativada!'
+                : '💻 Trava por aparelho desativada (várias pessoas podem usar este dispositivo).');
+        }
+
+        // ============================================================
+        // ANTI-FRAUD REGISTRATION & PASSWORD VAULT (TOP OF THE PAGE)
+        // ============================================================
+        function togglePasswordVisibility(inputId, iconId) {
+            const input = document.getElementById(inputId);
+            const icon = document.getElementById(iconId);
+            if (!input || !icon) return;
+            if (input.type === 'password') {
+                input.type = 'text';
+                icon.className = 'ph-bold ph-hash text-lg';
+            } else {
+                input.type = 'password';
+                icon.className = 'ph-bold ph-eye-slash text-lg';
+            }
+        }
+
+        function focusHeroPasswordVault(lockedNumberClicked = null) {
+            const section = document.getElementById('top-registration-vault');
+            const nameEl = document.getElementById('vault-winner-name');
+            const pwdEl = document.getElementById('vault-password-input');
+
+            if (section) {
+                section.scrollIntoView({ behavior: 'smooth', block: 'center' });
+                section.classList.add('ring-4', 'ring-amber-400');
+                setTimeout(() => section.classList.remove('ring-4', 'ring-amber-400'), 1400);
+            }
+
+            if (lockedNumberClicked) {
+                showVaultFeedback(
+                    `🔒 O Número #${formatNum(lockedNumberClicked)} está bloqueado no painel! Para liberar seu prêmio, cadastre seu Nome Completo e digite sua Senha (número escolhido de 01 a 80) aqui em cima!`,
+                    true
+                );
+            }
+
+            setTimeout(() => {
+                if (nameEl && !nameEl.value.trim()) nameEl.focus();
+                else if (pwdEl) pwdEl.focus();
+            }, 350);
+        }
+
+        // Resolve entered password to one of the 80 numbers (1 to 80)
+        function resolvePasswordToItem(rawPassword) {
+            const clean = String(rawPassword || '').trim().toUpperCase();
+            if (!clean) return null;
+
+            // 1. Check exact match against assigned custom PIN/Password
+            const exactMatch = state.items.find(i => String(i.password).trim().toUpperCase() === clean);
+            if (exactMatch) return exactMatch;
+
+            // 2. If in 'numeric_or_pin' mode, accept direct numbers 1 to 80 (or 01 to 80)
+            if (state.securityMode === 'numeric_or_pin') {
+                const digitsOnly = clean.replace(/^#/, '');
+                if (/^\d{1,2}$/.test(digitsOnly)) {
+                    const num = parseInt(digitsOnly, 10);
+                    if (num >= 1 && num <= TOTAL_NUMBERS) {
+                        return state.items.find(i => i.number === num) || null;
+                    }
+                }
+            }
+            return null;
+        }
+
+        function showVaultFeedback(message, isError = true, existingItem = null) {
+            const box = document.getElementById('vault-alert-box');
+            if (!box) return;
+            box.classList.remove('hidden');
+            if (isError) {
+                box.className = 'mt-3.5 p-3.5 rounded-xl bg-rose-50 dark:bg-rose-950/60 border-2 border-rose-300 dark:border-rose-800 text-rose-800 dark:text-rose-200 text-xs font-bold flex flex-wrap items-center justify-between gap-2';
+            } else {
+                box.className = 'mt-3.5 p-3.5 rounded-xl bg-emerald-50 dark:bg-emerald-950/60 border-2 border-emerald-300 dark:border-emerald-800 text-emerald-800 dark:text-emerald-200 text-xs font-bold flex flex-wrap items-center justify-between gap-2';
+            }
+
+            let actionHtml = '';
+            if (existingItem) {
+                actionHtml = `
+                    <button type="button" onclick="openExistingTicketModal(${existingItem.number})"
+                        class="px-3 py-1.5 rounded-lg bg-rose-600 hover:bg-rose-500 text-white text-xs font-extrabold shrink-0 transition">
+                        Ver Prêmio do #${formatNum(existingItem.number)}
+                    </button>
+                `;
+            }
+            box.innerHTML = `<span>${message}</span>${actionHtml}`;
+        }
+
+        function submitPasswordVault() {
+            const nameInput = document.getElementById('vault-winner-name');
+            const pwdInput = document.getElementById('vault-password-input');
+
+            const participantName = (nameInput ? nameInput.value.trim() : '');
+            const rawPwd = (pwdInput ? pwdInput.value.trim() : '');
+
+            // 1. Validate Participant Name (Must be a real name with at least 3 letters)
+            const lettersCount = (participantName.match(/[a-zA-ZÀ-ÿ]/g) || []).length;
+            if (!participantName || lettersCount < 3) {
+                showVaultFeedback('⚠️ Cadastro Obrigatório: Digite seu Nome Completo válido (mínimo 3 letras) antes de escolher o número.', true);
+                playSound('error');
+                if (nameInput) nameInput.focus();
+                return;
+            }
+
+            // 2. Check Optional Single-Device Lock (unless Admin is logged in)
+            if (state.deviceSingleLock && !organizerUnlocked) {
+                const alreadyPlayedNum = localStorage.getItem(DEVICE_LOCK_KEY);
+                if (alreadyPlayedNum) {
+                    const prevItem = state.items.find(i => i.number === parseInt(alreadyPlayedNum, 10));
+                    if (prevItem && prevItem.opened) {
+                        showVaultFeedback(
+                            `🛑 BLOQUEIO ANTI-FRAUDE: Este aparelho já realizou sua escolha no Número #${formatNum(prevItem.number)} (${prevItem.winnerName})!`,
+                            true,
+                            prevItem
+                        );
+                        playSound('error');
+                        return;
+                    }
+                }
+            }
+
+            // 3. Check if this Person Name has ALREADY chosen a number (Anti-Duplicate Name Lock)
+            if (state.uniqueNameLock) {
+                const normTyped = normalizeName(participantName);
+                const duplicatePersonItem = state.items.find(
+                    i => i.opened && normalizeName(i.winnerName) === normTyped
+                );
+                if (duplicatePersonItem) {
+                    showVaultFeedback(
+                        `🛑 BLOQUEIO ANTI-FRAUDE: "${duplicatePersonItem.winnerName}" já escolheu o Número #${formatNum(duplicatePersonItem.number)} (${duplicatePersonItem.emoji} ${duplicatePersonItem.prizeName})! Só é permitido 1 número por pessoa.`,
+                        true,
+                        duplicatePersonItem
+                    );
+                    playSound('error');
+                    return;
+                }
+            }
+
+            // 4. Validate Password / Chosen Number (01 to 80)
+            const matchedItem = resolvePasswordToItem(rawPwd);
+            if (!matchedItem) {
+                const modeHint = state.securityMode === 'strict_pin'
+                    ? 'Digite o código PIN secreto exato fornecido pelo administrador.'
+                    : 'A senha deve ser um número válido de 1 a 80.';
+                showVaultFeedback(`🚫 Senha / Número inválido! ${modeHint}`, true);
+                playSound('error');
+                if (pwdInput) pwdInput.focus();
+                return;
+            }
+
+            // 5. Check if this Number was ALREADY chosen by someone else
+            if (matchedItem.opened) {
+                showVaultFeedback(
+                    `🛑 NÚMERO JÁ ESCOLHIDO: O Número #${formatNum(matchedItem.number)} já foi aberto por "${matchedItem.winnerName}" às ${matchedItem.openedAt || 'antes'}! Escolha outro número livre.`,
+                    true,
+                    matchedItem
+                );
+                playSound('error');
+                if (pwdInput) pwdInput.focus();
+                return;
+            }
+
+            // =========================================================================
+            // 6. LOCK IN CHOICE IMMEDIATELY & REVEAL PRIZE!
+            // =========================================================================
+            const currentOpenedCount = state.items.filter(i => i.opened).length;
+            matchedItem.opened = true;
+            matchedItem.winnerName = participantName;
+            matchedItem.openedOrder = currentOpenedCount + 1;
+            matchedItem.openedAt = new Date().toLocaleTimeString('pt-BR', { hour: '2-digit', minute: '2-digit' });
+            matchedItem.authCode = generateAuthHash(matchedItem.number);
+
+            if (state.deviceSingleLock) {
+                localStorage.setItem(DEVICE_LOCK_KEY, String(matchedItem.number));
+            }
+
+            saveState();
+
+            // Clear top inputs so next participant has a clean form
+            if (nameInput) nameInput.value = '';
+            if (pwdInput) pwdInput.value = '';
+
+            const personTotalWins = state.items.filter(i => i.opened && normalizeName(i.winnerName) === normalizeName(participantName)).length;
+            const participationNote = personTotalWins > 1 ? ` (${personTotalWins}ª participação de ${participantName})` : '';
+
+            showVaultFeedback(
+                `🎉 Número #${formatNum(matchedItem.number)} liberado para ${participantName}${participationNote}! Prêmio: ${matchedItem.emoji} ${matchedItem.prizeName}!`,
+                false,
+                matchedItem
+            );
+
+            renderAll();
+
+            // Trigger Immediate Prize Reveal Modal (Guaranteed Reveal!)
+            openPrizeRevealModal(matchedItem.number);
+        }
+
+        // ==========================================================
+        // BINGO GRID CLICK HANDLER (STRICTLY LOCKED FOR UNOPENED!)
+        // ==========================================================
+        function onNumberCardClick(number) {
+            const item = state.items.find(i => i.number === number);
+            if (!item) return;
+
+            if (item.opened) {
+                // Already revealed -> Show its Golden Ticket receipt
+                openExistingTicketModal(number);
+            } else {
+                // STRICT RULE: Cannot choose or open a number from the bottom grid without registering at the top!
+                const cardEl = document.getElementById(`card-num-${number}`);
+                if (cardEl) {
+                    cardEl.classList.add('ring-2', 'ring-rose-500');
+                    setTimeout(() => cardEl.classList.remove('ring-2', 'ring-rose-500'), 900);
+                }
+                playSound('error');
+                showToast(`🔒 Número #${formatNum(number)} bloqueado! Cadastre seu Nome e Senha lá em cima para liberar.`);
+                focusHeroPasswordVault(number);
+            }
+        }
+
+        // ==========================================================
+        // GUARANTEED PRIZE REVEAL MODAL ENGINE
+        // ==========================================================
+        function openPrizeRevealModal(number) {
+            const item = state.items.find(i => i.number === number);
+            if (!item) return;
+
+            activeModalNumber = number;
+            if (unboxTimeoutId) {
+                clearTimeout(unboxTimeoutId);
+                unboxTimeoutId = null;
+            }
+
+            const modal = document.getElementById('modal-reveal');
+            const stepUnbox = document.getElementById('reveal-step-unbox');
+            const stepResult = document.getElementById('reveal-step-result');
+
+            modal.classList.remove('hidden');
+            modal.classList.add('flex');
+
+            // Show quick 0.75s excitement animation and then AUTOMATICALLY display the prize!
+            stepUnbox.classList.remove('hidden');
+            stepResult.classList.add('hidden');
+
+            document.getElementById('unbox-number-label').textContent = `#${formatNum(item.number)}`;
+            document.getElementById('unbox-winner-label').textContent = `👤 Ganhador(a): ${item.winnerName}`;
+
+            playSound('suspense');
+
+            unboxTimeoutId = setTimeout(() => {
+                finishInstantReveal();
+            }, 750);
+        }
+
+        function finishInstantReveal() {
+            if (unboxTimeoutId) {
+                clearTimeout(unboxTimeoutId);
+                unboxTimeoutId = null;
+            }
+            const item = state.items.find(i => i.number === activeModalNumber);
+            if (!item) return;
+
+            document.getElementById('reveal-step-unbox').classList.add('hidden');
+            showGoldenTicketStep(item, true);
+        }
+
+        function openExistingTicketModal(number) {
+            const item = state.items.find(i => i.number === number);
+            if (!item || !item.opened) return;
+            activeModalNumber = number;
+
+            if (unboxTimeoutId) {
+                clearTimeout(unboxTimeoutId);
+                unboxTimeoutId = null;
+            }
+
+            const modal = document.getElementById('modal-reveal');
+            modal.classList.remove('hidden');
+            modal.classList.add('flex');
+            document.getElementById('reveal-step-unbox').classList.add('hidden');
+            showGoldenTicketStep(item, false);
+        }
+
+        function showGoldenTicketStep(item, celebrate = true) {
+            const stepResult = document.getElementById('reveal-step-result');
+            stepResult.classList.remove('hidden');
+
+            const numStr = formatNum(item.number);
+            const rMeta = RARITY_META[item.rarity] || RARITY_META.common;
+
+            const ticketCard = document.getElementById('result-ticket-card');
+            ticketCard.className = `rounded-3xl p-6 my-2 relative overflow-hidden text-center transition-all ${rMeta.cardClass}`;
+
+            document.getElementById('result-number-badge').textContent = `#${numStr}`;
+            const rarityBadge = document.getElementById('result-rarity-badge');
+            rarityBadge.textContent = rMeta.badgeText;
+            rarityBadge.className = `px-3 py-1 rounded-full text-xs font-extrabold uppercase tracking-wider ${rMeta.pillClass}`;
+
+            document.getElementById('result-prize-emoji').textContent = item.emoji;
+            document.getElementById('result-prize-name').textContent = item.prizeName;
+            document.getElementById('result-auth-code').textContent = item.authCode || `ALARES-#${numStr}`;
+            document.getElementById('result-time-label').textContent = item.openedAt || 'Agora';
+            document.getElementById('result-winner-name').textContent = item.winnerName || `Participante #${numStr}`;
+
+            const editBox = document.getElementById('inline-edit-winner-box');
+            editBox.classList.add('hidden');
+            editBox.classList.remove('flex');
+
+            // Only show Admin Edit / Undo buttons if Admin (7777) is logged in!
+            const btnAdminEdit = document.getElementById('btn-admin-edit-winner');
+            const adminActions = document.getElementById('admin-ticket-actions');
+            if (organizerUnlocked) {
+                btnAdminEdit.classList.remove('hidden');
+                btnAdminEdit.classList.add('flex');
+                adminActions.classList.remove('hidden');
+                adminActions.classList.add('flex');
+            } else {
+                btnAdminEdit.classList.add('hidden');
+                btnAdminEdit.classList.remove('flex');
+                adminActions.classList.add('hidden');
+                adminActions.classList.remove('flex');
+            }
+
+            if (celebrate) {
+                playSound('win', item.rarity);
+                launchConfetti(item.rarity);
+                showToast(`🎉 Parabéns, ${item.winnerName}! Número #${numStr}: ${item.emoji} ${item.prizeName}!`);
+            }
+        }
+
+        function closeRevealModal() {
+            if (unboxTimeoutId) {
+                clearTimeout(unboxTimeoutId);
+                unboxTimeoutId = null;
+            }
+            const modal = document.getElementById('modal-reveal');
+            modal.classList.add('hidden');
+            modal.classList.remove('flex');
+            const currentNum = activeModalNumber;
+            activeModalNumber = null;
+            renderAll();
+
+            // Smoothly highlight the revealed card in the Bingo grid so the user sees it open on the board
+            if (currentNum) {
+                const cardEl = document.getElementById(`card-num-${currentNum}`);
+                if (cardEl) {
+                    cardEl.scrollIntoView({ behavior: 'smooth', block: 'center' });
+                    cardEl.classList.add('ring-4', 'ring-amber-400');
+                    setTimeout(() => cardEl.classList.remove('ring-4', 'ring-amber-400'), 1800);
+                }
+            }
+        }
+
+        // ==========================================
+        // ADMIN-ONLY WINNER EDIT & UNDO
+        // ==========================================
+        function promptEditWinnerName() {
+            if (!organizerUnlocked) return;
+            const item = state.items.find(i => i.number === activeModalNumber);
+            if (!item) return;
+            const box = document.getElementById('inline-edit-winner-box');
+            const input = document.getElementById('input-edit-winner');
+            input.value = item.winnerName || '';
+            box.classList.remove('hidden');
+            box.classList.add('flex');
+            input.focus();
+        }
+
+        function saveEditedWinnerName() {
+            if (!organizerUnlocked) return;
+            const item = state.items.find(i => i.number === activeModalNumber);
+            if (!item) return;
+            const val = document.getElementById('input-edit-winner').value.trim();
+            if (val) {
+                item.winnerName = val;
+                saveState();
+                document.getElementById('result-winner-name').textContent = val;
+                const box = document.getElementById('inline-edit-winner-box');
+                box.classList.add('hidden');
+                box.classList.remove('flex');
+                renderAll();
+                showToast('✅ Nome do ganhador atualizado pelo Admin!');
+            }
+        }
+
+        function copySingleTicketResult() {
+            const item = state.items.find(i => i.number === activeModalNumber);
+            if (!item) return;
+            const numStr = formatNum(item.number);
+            const text = `🎉 *COMPROVANTE OFICIAL — ${state.title.toUpperCase()}*\n\n` +
+                `🔢 *Número Escolhido:* #${numStr}\n` +
+                `👤 *Nome:* ${item.winnerName}\n` +
+                `🎁 *Prêmio Ganho:* ${item.emoji} *${item.prizeName}*\n` +
+                `⏰ *Horário:* ${item.openedAt || 'Agora'}\n` +
+                `🛡️ *Registro:* ${item.authCode}`;
+            copyToClipboard(text, '📲 Comprovante do prêmio copiado para o WhatsApp!');
+        }
+
+        function undoCurrentNumber() {
+            if (!organizerUnlocked) return;
+            const item = state.items.find(i => i.number === activeModalNumber);
+            if (!item) return;
+            const numStr = formatNum(item.number);
+            item.opened = false;
+            item.delivered = false;
+            item.winnerName = '';
+            item.openedAt = null;
+            item.openedOrder = 0;
+            item.authCode = generateAuthHash(item.number);
+            localStorage.removeItem(DEVICE_LOCK_KEY);
+            saveState();
+            closeRevealModal();
+            renderAll();
+            showToast(`🔄 O Número #${numStr} foi estornado pelo Admin e está disponível novamente!`);
+        }
+
+        // ==========================================
+        // FILTER & SEARCH BAR CONTROLS
+        // ==========================================
+        function setStatusFilter(filter) {
+            state.statusFilter = filter;
+            const tabs = ['all', 'available', 'opened'];
+            tabs.forEach(t => {
+                const btn = document.getElementById(`filter-status-${t}`);
+                if (!btn) return;
+                if (t === filter) {
+                    btn.className = 'px-4 py-2 rounded-xl text-xs sm:text-sm font-extrabold transition whitespace-nowrap bg-slate-900 dark:bg-amber-500 text-white dark:text-slate-950 shadow-sm';
+                } else {
+                    btn.className = 'px-4 py-2 rounded-xl text-xs sm:text-sm font-bold transition whitespace-nowrap bg-slate-100 dark:bg-slate-800 text-slate-700 dark:text-slate-300 hover:bg-slate-200 dark:hover:bg-slate-700';
+                }
+            });
+            renderGrid();
+        }
+
+        function handleSearch(val) {
+            state.searchQuery = val || '';
+            const clearBtn = document.getElementById('btn-clear-search');
+            if (clearBtn) {
+                if (state.searchQuery.trim().length > 0) clearBtn.classList.remove('hidden');
+                else clearBtn.classList.add('hidden');
+            }
+            renderGrid();
+        }
+
+        function clearSearch() {
+            const input = document.getElementById('search-input');
+            if (input) input.value = '';
+            handleSearch('');
+        }
+
+        function resetAllFilters() {
+            clearSearch();
+            setStatusFilter('all');
+        }
+
+        // ==========================================
+        // THEME, SOUND & ADMIN PEEK TOGGLES
+        // ==========================================
+        function applyTheme() {
+            const htmlEl = document.documentElement;
+            const icon = document.getElementById('icon-theme');
+            if (state.darkMode) {
+                htmlEl.classList.add('dark');
+                if (icon) icon.className = 'ph-fill ph-sun text-lg text-amber-400';
+            } else {
+                htmlEl.classList.remove('dark');
+                if (icon) icon.className = 'ph-fill ph-moon-stars text-lg text-indigo-600';
+            }
+        }
+
+        function toggleTheme() {
+            state.darkMode = !state.darkMode;
+            applyTheme();
+            saveState();
+            showToast(state.darkMode ? '🌙 Modo Noturno Gala ativado!' : '☀️ Modo Claro Cristal ativado!');
+        }
+
+        function toggleSound() {
+            state.soundEnabled = !state.soundEnabled;
+            saveState();
+            renderAll();
+            if (state.soundEnabled) playSound('tick');
+        }
+
+        function togglePeekMode() {
+            if (!organizerUnlocked) return;
+            state.peekMode = !state.peekMode;
+            renderAll();
+            showToast(state.peekMode
+                ? '👀 Olho Mágico (Admin) ativado: espiando os prêmios ocultos no Bingo!'
+                : '🔒 Olho Mágico desativado: prêmios ocultos protegidos.');
+        }
+
+        // ==========================================
+        // RENDER UI & 80 NUMBERS BINGO GRID
+        // ==========================================
+        function renderAll() {
+            document.getElementById('header-title').textContent = state.title;
+            document.getElementById('header-subtitle').textContent = state.subtitle;
+
+            // Update Security Mode Badge
+            const secBadge = document.getElementById('vault-security-mode-badge');
+            if (secBadge) {
+                const multiText = state.uniqueNameLock ? '1 Nº por Pessoa' : 'Mesmo Nome Pode Participar + Vezes';
+                secBadge.innerHTML = state.securityMode === 'strict_pin'
+                    ? `<i class="ph-fill ph-shield-star text-amber-500"></i><span>PIN Secreto • ${multiText}</span>`
+                    : `<i class="ph-fill ph-shield-check text-emerald-500"></i><span>Senha = Nº (01 a 80) • ${multiText}</span>`;
+            }
+
+            updateAdminLockIndicator();
+
+            // Sound Icon
+            document.getElementById('icon-sound').className = state.soundEnabled
+                ? 'ph-fill ph-speaker-high text-lg text-emerald-600 dark:text-emerald-400'
+                : 'ph-fill ph-speaker-slash text-lg text-rose-500';
+
+            updateCounters();
+            renderGrid();
+        }
+
+        function updateCounters() {
+            const opened = state.items.filter(i => i.opened);
+            const avail = TOTAL_NUMBERS - opened.length;
+            const pct = Math.round((opened.length / TOTAL_NUMBERS) * 100);
+
+            document.getElementById('stats-progress-text').textContent = `${opened.length} de ${TOTAL_NUMBERS} Revelados (${pct}%)`;
+            document.getElementById('stats-progress-bar').style.width = `${pct}%`;
+            document.getElementById('stat-available').textContent = avail;
+            document.getElementById('stat-opened').textContent = opened.length;
+            document.getElementById('badge-history-count').textContent = `${opened.length}/${TOTAL_NUMBERS}`;
+        }
+
+        function renderGrid() {
+            const grid = document.getElementById('numbers-grid');
+            const emptyState = document.getElementById('empty-grid-state');
+            grid.innerHTML = '';
+
+            const q = state.searchQuery.trim().toLowerCase();
+
+            const filtered = state.items.filter(item => {
+                if (state.statusFilter === 'available' && item.opened) return false;
+                if (state.statusFilter === 'opened' && !item.opened) return false;
+                if (q) {
+                    const numStr = formatNum(item.number);
+                    const matchNum = numStr.includes(q) || String(item.number) === q;
+                    const matchWinner = item.opened && item.winnerName.toLowerCase().includes(q);
+                    const matchPrize = (item.opened || (organizerUnlocked && state.peekMode)) && item.prizeName.toLowerCase().includes(q);
+                    return matchNum || matchWinner || matchPrize;
+                }
+                return true;
+            });
+
+            if (filtered.length === 0) {
+                emptyState.classList.remove('hidden');
+            } else {
+                emptyState.classList.add('hidden');
+            }
+
+            filtered.forEach(item => {
+                const numFormatted = formatNum(item.number);
+                const rMeta = RARITY_META[item.rarity] || RARITY_META.common;
+                const card = document.createElement('button');
+                card.id = `card-num-${item.number}`;
+                card.type = 'button';
+                card.onclick = () => onNumberCardClick(item.number);
+
+                if (!item.opened) {
+                    // LOCKED AVAILABLE BINGO CARD (Cannot be opened directly by clicking down here!)
+                    card.className = 'number-ticket available rounded-2xl p-3.5 flex flex-col items-center justify-between min-h-[128px] sm:min-h-[138px] text-center group cursor-pointer select-none';
+                    card.innerHTML = `
+                        <div class="w-full flex items-center justify-between">
+                            <span class="px-2 py-0.5 rounded-md bg-slate-100 dark:bg-slate-800 text-slate-600 dark:text-slate-300 border border-slate-200 dark:border-slate-700 text-[10px] font-extrabold uppercase tracking-wider flex items-center gap-1">
+                                <i class="ph-fill ph-lock-key text-amber-500"></i> Livre
+                            </span>
+                            <i class="ph-fill ph-gift text-amber-500/80 group-hover:scale-110 transition text-base"></i>
+                        </div>
+                        <div class="my-auto py-1">
+                            <div class="font-display font-black text-3xl sm:text-4xl text-slate-900 dark:text-white group-hover:text-amber-600 dark:group-hover:text-amber-400 tracking-tight transition">
+                                ${numFormatted}
+                            </div>
+                        </div>
+                        ${(organizerUnlocked && state.peekMode) ? `
+                            <div class="w-full px-2 py-1 rounded-lg bg-amber-50 dark:bg-slate-800 border border-amber-200 dark:border-slate-700 text-[10px] font-bold ${rMeta.textClass} line-clamp-1" title="Senha: ${item.password} | ${item.prizeName}">
+                                ${item.emoji} ${item.prizeName}
+                            </div>
+                        ` : `
+                            <div class="w-full py-1 px-2 rounded-xl bg-amber-50/80 dark:bg-slate-800/80 text-amber-800 dark:text-amber-300 border border-amber-200/70 dark:border-slate-700 text-[10px] font-extrabold flex items-center justify-center gap-1 transition">
+                                <i class="ph-fill ph-lock-key"></i>
+                                <span>Cadastre no Topo</span>
+                            </div>
+                        `}
+                    `;
+                } else {
+                    // ALREADY REVEALED BINGO CARD (Shows Winner Name & Prize Won!)
+                    card.className = `number-ticket ${rMeta.cardClass} rounded-2xl p-3 flex flex-col items-center justify-between min-h-[128px] sm:min-h-[138px] text-center cursor-pointer select-none hover:scale-[1.02] transition`;
+                    card.innerHTML = `
+                        <div class="w-full flex items-center justify-between gap-1">
+                            <span class="px-2 py-0.5 rounded-lg bg-slate-900 dark:bg-white text-white dark:text-slate-950 font-display font-black text-xs">
+                                #${numFormatted}
+                            </span>
+                            <span class="px-2 py-0.5 rounded-md text-[9px] font-extrabold uppercase ${rMeta.pillClass}">
+                                ${rMeta.label}
+                            </span>
+                        </div>
+                        <div class="my-1 flex flex-col items-center">
+                            <span class="text-2xl sm:text-3xl leading-none mb-1">${item.emoji}</span>
+                            <div class="text-xs font-extrabold text-slate-900 dark:text-white leading-snug line-clamp-2 px-0.5" title="${item.prizeName}">
+                                ${item.prizeName}
+                            </div>
+                        </div>
+                        <div class="w-full pt-1 border-t border-slate-900/10 dark:border-white/10 text-[11px] font-extrabold text-slate-800 dark:text-slate-200 truncate" title="Ganhador(a): ${item.winnerName}">
+                            👤 ${item.winnerName || 'Participante'}
+                        </div>
+                    `;
+                }
+
+                grid.appendChild(card);
+            });
+        }
+
+        // ==========================================
+        // ADMIN SETTINGS & PASSWORD HELPERS
+        // ==========================================
+        function setPasswordSecurityMode(mode) {
+            if (!organizerUnlocked) return;
+            state.securityMode = mode;
+            saveState();
+            renderAll();
+            renderAdminSettingsState();
+            showToast(mode === 'strict_pin'
+                ? '🛡️ Modo PIN Secreto Ativado: exige o código exato de cada número!'
+                : '🔢 Modo Senha = Número Escolhido (01 a 80) Ativado!');
+        }
+
+        function generatePasswordsPreset(type) {
+            if (!organizerUnlocked) return;
+            state.items.forEach(item => {
+                const numStr = formatNum(item.number);
+                if (type === 'numbers') {
+                    item.password = numStr;
+                } else if (type === 'random_pin') {
+                    const rand4 = Math.floor(1000 + Math.random() * 9000);
+                    item.password = `${numStr}-${rand4}`;
+                }
+            });
+
+            state.securityMode = type === 'random_pin' ? 'strict_pin' : 'numeric_or_pin';
+            saveState();
+            renderAll();
+            renderAdminSettingsState();
+            renderAdminSecretMap();
+            showToast('🔑 80 senhas atualizadas com sucesso!');
+        }
+
+        function copyAllPasswordsWhatsApp() {
+            if (!organizerUnlocked) return;
+            const avail = state.items.filter(i => !i.opened);
+            if (avail.length === 0) {
+                showToast('⚠️ Todos os 80 números já foram escolhidos!');
+                return;
+            }
+            let lines = [`🔐 *RELAÇÃO DE SENHAS DISPONÍVEIS — ${state.title.toUpperCase()}* (${avail.length}/80)\n`];
+            avail.forEach(item => {
+                lines.push(`Nº *#${formatNum(item.number)}* ➔ Senha: *${item.password}*`);
+            });
+            copyToClipboard(lines.join('\n'), '📋 Lista de senhas disponíveis copiada!');
+        }
+
+        // ==========================================
+        // ADMIN LUCKY ROULETTE ON THE 80 GRID
+        // ==========================================
+        function startGridRoulette() {
+            if (!organizerUnlocked || isRouletteRunning) return;
+
+            if (state.statusFilter === 'opened' || state.searchQuery) {
+                resetAllFilters();
+            }
+
+            const availableItems = state.items.filter(i => !i.opened);
+            if (availableItems.length === 0) {
+                showToast('🎉 Todos os 80 números já foram escolhidos!');
+                return;
+            }
+
+            isRouletteRunning = true;
+            const winnerItem = availableItems[Math.floor(Math.random() * availableItems.length)];
+            const totalSteps = availableItems.length === 1 ? 1 : 20;
+            let step = 0;
+            let lastCard = null;
+
+            function nextStep() {
+                if (lastCard) lastCard.classList.remove('roulette-spotlight');
+
+                if (step < totalSteps) {
+                    const randItem = availableItems[Math.floor(Math.random() * availableItems.length)];
+                    const el = document.getElementById(`card-num-${randItem.number}`);
+                    if (el) {
+                        el.classList.add('roulette-spotlight');
+                        lastCard = el;
+                    }
+                    playSound('tick');
+                    step++;
+                    setTimeout(nextStep, 45 + Math.pow(step, 1.6) * 3.2);
+                } else {
+                    const finalCard = document.getElementById(`card-num-${winnerItem.number}`);
+                    if (finalCard) {
+                        finalCard.classList.add('roulette-spotlight');
+                        finalCard.scrollIntoView({ behavior: 'smooth', block: 'center' });
+                    }
+                    playSound('tick');
+
+                    setTimeout(() => {
+                        if (finalCard) finalCard.classList.remove('roulette-spotlight');
+                        isRouletteRunning = false;
+                        const pwdInput = document.getElementById('vault-password-input');
+                        if (pwdInput) pwdInput.value = winnerItem.password;
+                        focusHeroPasswordVault();
+                        showToast(`🎲 Número sorteado na roleta: #${formatNum(winnerItem.number)}! Digite o nome no topo para abrir.`);
+                    }, 600);
+                }
+            }
+
+            nextStep();
+        }
+
+        // ==========================================
+        // VITRINE OFICIAL DOS 80 PRÊMIOS (SAFE VIEW)
+        // ==========================================
+        function openCatalogModal() {
+            const modal = document.getElementById('modal-catalog');
+            modal.classList.remove('hidden');
+            modal.classList.add('flex');
+            renderCatalogList();
+        }
+
+        function closeCatalogModal() {
+            const modal = document.getElementById('modal-catalog');
+            modal.classList.add('hidden');
+            modal.classList.remove('flex');
+        }
+
+        function renderCatalogList() {
+            const container = document.getElementById('catalog-list-container');
+            container.innerHTML = '';
+
+            ALARES_PRIZE_SPECS.forEach(spec => {
+                const rMeta = RARITY_META[spec.rarity] || RARITY_META.common;
+                const div = document.createElement('div');
+                div.className = `p-4 rounded-2xl border flex items-center justify-between gap-3 ${rMeta.cardClass}`;
+                div.innerHTML = `
+                    <div class="flex items-center gap-3.5 min-w-0">
+                        <span class="text-4xl shrink-0">${spec.emoji}</span>
+                        <div class="min-w-0">
+                            <span class="inline-block px-2 py-0.5 rounded-md text-[10px] font-extrabold uppercase ${rMeta.pillClass} mb-1">
+                                ${rMeta.label}
+                            </span>
+                            <div class="text-base font-display font-black text-slate-900 dark:text-white leading-snug">
+                                ${spec.count}x ${spec.name}
+                            </div>
+                            <div class="text-xs font-semibold text-slate-600 dark:text-slate-300 mt-0.5">
+                                Premiação Oficial Alares • Espalhada aleatoriamente no Bingo
+                            </div>
+                        </div>
+                    </div>
+                `;
+                container.appendChild(div);
+            });
+        }
+
+        // ==========================================
+        // EXPORT WINNERS & ADMIN SETTINGS
+        // ==========================================
+        function copyHistoryText() {
+            if (!organizerUnlocked) return;
+            const opened = state.items.filter(i => i.opened);
+            if (opened.length === 0) {
+                showToast('⚠️ Nenhum número escolhido ainda para copiar.');
+                return;
+            }
+            let lines = [`🏆 *RELATÓRIO DE GANHADORES — ${state.title.toUpperCase()}* (${opened.length}/80)\n`];
+            opened.forEach(item => {
+                const statusStr = item.delivered ? '✅ Entregue' : '⏳ Pendente';
+                lines.push(`Nº *#${formatNum(item.number)}* — 👤 *${item.winnerName}* ➔ ${item.emoji} *${item.prizeName}* (${statusStr})`);
+            });
+            copyToClipboard(lines.join('\n'), '📋 Relatório de números escolhidos e ganhadores copiado para o WhatsApp!');
+        }
+
+        function exportHistoryCSV() {
+            if (!organizerUnlocked) return;
+            const opened = state.items.filter(i => i.opened);
+            if (opened.length === 0) {
+                showToast('⚠️ Nenhum ganhador registrado ainda para exportar.');
+                return;
+            }
+            let csv = 'Numero_Escolhido,Nome_da_Pessoa,Categoria,Premio_Ganho,Status_Entrega,Horario,Codigo_Autenticidade\n';
+            opened.forEach(i => {
+                const rMeta = RARITY_META[i.rarity] || RARITY_META.common;
+                const cleanName = (i.winnerName || '').replace(/"/g, '""');
+                const cleanPrize = (i.prizeName || '').replace(/"/g, '""');
+                const statusEntrega = i.delivered ? 'Entregue' : 'Pendente';
+                csv += `${formatNum(i.number)},"${cleanName}","${rMeta.label}","${cleanPrize}","${statusEntrega}","${i.openedAt || ''}","${i.authCode || ''}"\n`;
+            });
+            const blob = new Blob(["\uFEFF" + csv], { type: 'text/csv;charset=utf-8;' });
+            const url = URL.createObjectURL(blob);
+            const a = document.createElement('a');
+            a.href = url;
+            a.download = `acompanhamento_sorteio_80_alares.csv`;
+            document.body.appendChild(a);
+            a.click();
+            document.body.removeChild(a);
+            showToast('📥 Planilha Excel (CSV) baixada com sucesso!');
+        }
+
+        function saveAdminSettings() {
+            if (!organizerUnlocked) return;
+            state.title = document.getElementById('admin-input-title').value.trim() || 'Sorteio Premiado Alares 80';
+            state.subtitle = document.getElementById('admin-input-subtitle').value.trim() || 'Cadastre seu nome e digite sua senha (01 a 80)!';
+            saveState();
+            renderAll();
+            showToast('✅ Textos do evento salvos com sucesso!');
+        }
+
+        function showResetConfirmation() {
+            document.getElementById('btn-ask-reset').classList.add('hidden');
+            const box = document.getElementById('reset-confirm-buttons');
+            box.classList.remove('hidden');
+            box.classList.add('flex');
+        }
+
+        function cancelResetConfirmation() {
+            const btnAsk = document.getElementById('btn-ask-reset');
+            const box = document.getElementById('reset-confirm-buttons');
+            if (btnAsk) btnAsk.classList.remove('hidden');
+            if (box) {
+                box.classList.add('hidden');
+                box.classList.remove('flex');
+            }
+        }
+
+        function confirmFullReset() {
+            if (!organizerUnlocked) return;
+            const existingPasswords = state.items.map(i => i.password);
+            state.items = createInitialItems(existingPasswords);
+            localStorage.removeItem(DEVICE_LOCK_KEY);
+            saveState();
+            renderAll();
+            cancelResetConfirmation();
+            switchAdminTab('map');
+            showToast('🎲 Sorteio reiniciado! Os 80 prêmios foram reembaralhados sem repetição colada.');
+        }
+
+        // ==========================================
+        // CLIPBOARD & TOAST HELPERS
+        // ==========================================
+        function copyToClipboard(text, successMsg) {
+            const ta = document.createElement('textarea');
+            ta.value = text;
+            ta.style.position = 'fixed';
+            ta.style.opacity = '0';
+            document.body.appendChild(ta);
+            ta.select();
+            try {
+                document.execCommand('copy');
+                showToast(successMsg);
+            } catch (e) {
+                showToast('⚠️ Não foi possível copiar automaticamente.');
+            }
+            document.body.removeChild(ta);
+        }
+
+        function showToast(message) {
+            const container = document.getElementById('toast-container');
+            const toast = document.createElement('div');
+            toast.className = 'bg-slate-900 dark:bg-white text-white dark:text-slate-950 px-4 py-3.5 rounded-2xl shadow-xl border border-slate-700 dark:border-slate-200 text-xs sm:text-sm font-bold flex items-center gap-2 transition-all duration-300 transform translate-y-2 opacity-0';
+            toast.innerHTML = `<span>${message}</span>`;
+            container.appendChild(toast);
+
+            requestAnimationFrame(() => {
+                toast.classList.remove('translate-y-2', 'opacity-0');
+            });
+
+            setTimeout(() => {
+                toast.classList.add('opacity-0', 'translate-y-2');
+                setTimeout(() => toast.remove(), 300);
+            }, 3400);
+        }
+
+        // ==========================================
+        // HTML5 CANVAS CONFETTI ENGINE
+        // ==========================================
+        const confettiCanvas = document.getElementById('confetti-canvas');
+        const confettiCtx = confettiCanvas.getContext('2d');
+        let confettiParticles = [];
+        let confettiAnimId = null;
+
+        function resizeConfettiCanvas() {
+            confettiCanvas.width = window.innerWidth;
+            confettiCanvas.height = window.innerHeight;
+        }
+        window.addEventListener('resize', resizeConfettiCanvas);
+        resizeConfettiCanvas();
+
+        function launchConfetti(rarity = 'common') {
+            const palettes = {
+                legendary: ['#f59e0b', '#fbbf24', '#fef08a', '#ea580c', '#ffffff'],
+                epic: ['#d946ef', '#ec4899', '#f59e0b', '#a855f7'],
+                rare: ['#0ea5e9', '#38bdf8', '#f59e0b', '#6366f1'],
+                common: ['#10b981', '#34d399', '#f59e0b', '#0ea5e9']
+            };
+            const colors = palettes[rarity] || palettes.common;
+            const count = rarity === 'legendary' ? 150 : rarity === 'epic' ? 110 : 80;
+
+            for (let i = 0; i < count; i++) {
+                confettiParticles.push({
+                    x: window.innerWidth / 2 + (Math.random() - 0.5) * 180,
+                    y: window.innerHeight * 0.45,
+                    vx: (Math.random() - 0.5) * 18,
+                    vy: -Math.random() * 16 - 6,
+                    size: Math.random() * 9 + 5,
+                    color: colors[Math.floor(Math.random() * colors.length)],
+                    rotation: Math.random() * 360,
+                    rotationSpeed: (Math.random() - 0.5) * 12,
+                    gravity: 0.34,
+                    alpha: 1
+                });
+            }
+
+            if (!confettiAnimId) animateConfetti();
+        }
+
+        function animateConfetti() {
+            confettiCtx.clearRect(0, 0, confettiCanvas.width, confettiCanvas.height);
+
+            confettiParticles.forEach(p => {
+                p.x += p.vx;
+                p.y += p.vy;
+                p.vy += p.gravity;
+                p.vx *= 0.985;
+                p.rotation += p.rotationSpeed;
+                if (p.y > confettiCanvas.height - 60) p.alpha -= 0.03;
+
+                confettiCtx.save();
+                confettiCtx.globalAlpha = Math.max(0, p.alpha);
+                confettiCtx.translate(p.x, p.y);
+                confettiCtx.rotate((p.rotation * Math.PI) / 180);
+                confettiCtx.fillStyle = p.color;
+                confettiCtx.fillRect(-p.size / 2, -p.size / 2, p.size, p.size * 0.65);
+                confettiCtx.restore();
+            });
+
+            confettiParticles = confettiParticles.filter(p => p.alpha > 0 && p.y < confettiCanvas.height + 40);
+
+            if (confettiParticles.length > 0) {
+                confettiAnimId = requestAnimationFrame(animateConfetti);
+            } else {
+                confettiAnimId = null;
+                confettiCtx.clearRect(0, 0, confettiCanvas.width, confettiCanvas.height);
+            }
+        }
+
+        // Start App on Load
+        window.onload = function () {
+            loadState();
+            renderAll();
+        };
+    </script>
+</body>
+</html>
